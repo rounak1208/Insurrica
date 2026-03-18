@@ -45,7 +45,13 @@ html {
 /* Mobile bottom bar spacing */
 @media (max-width: 767px) {
   footer {
-    padding-bottom: 4rem !important;
+    padding-bottom: 4.5rem !important;
+  }
+  /* Hide Emergent badge on mobile to prevent overlap with CTA bar */
+  #__emergent-badge,
+  [data-emergent-badge],
+  div[style*="position: fixed"][style*="z-index: 9999"] {
+    display: none !important;
   }
 }
 

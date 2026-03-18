@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const partners = [
   { name: "LIC of India", domain: "licindia.in", color: "#003366" },
   { name: "HDFC Ergo", domain: "hdfcergo.com", color: "#004B8D" },
@@ -18,38 +20,35 @@ const partners = [
 ];
 
 const PartnerLogo = ({ partner }) => {
+  const [imgFailed, setImgFailed] = useState(false);
+  const initials = partner.name.split(" ").map(w => w[0]).join("").slice(0, 3);
+
   return (
     <div
       data-testid={`partner-logo-${partner.domain}`}
-      className="group flex flex-col items-center justify-center p-4 rounded-xl bg-[#F8FAFC] border border-transparent hover:border-[#0088CC]/10 hover:shadow-sm"
-      style={{
-        transitionProperty: "border-color, box-shadow",
-        transitionDuration: "300ms",
-      }}
+      className="group flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl bg-white border border-gray-100 hover:border-[#0088CC]/20 hover:shadow-md"
+      style={{ transitionProperty: "border-color, box-shadow", transitionDuration: "300ms" }}
     >
-      <div className="w-16 h-16 flex items-center justify-center">
-        <img
-          src={`https://logo.clearbit.com/${partner.domain}?size=80`}
-          alt={`${partner.name} logo`}
-          loading="lazy"
-          className="max-w-full max-h-full object-contain opacity-70 group-hover:opacity-100"
-          style={{
-            transitionProperty: "opacity",
-            transitionDuration: "300ms",
-          }}
-          onError={(e) => {
-            e.target.style.display = "none";
-            e.target.parentElement.querySelector('.fallback-logo').style.display = "flex";
-          }}
-        />
-        <div
-          className="fallback-logo w-12 h-12 rounded-xl items-center justify-center text-white font-bold text-sm hidden"
-          style={{ backgroundColor: partner.color, display: "none" }}
-        >
-          {partner.name.split(" ").map(w => w[0]).join("").slice(0, 2)}
-        </div>
+      <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white overflow-hidden">
+        {!imgFailed ? (
+          <img
+            src={`https://logo.clearbit.com/${partner.domain}?size=128`}
+            alt={`${partner.name} logo`}
+            loading="lazy"
+            className="max-w-[48px] max-h-[48px] sm:max-w-[56px] sm:max-h-[56px] object-contain opacity-80 group-hover:opacity-100"
+            style={{ transitionProperty: "opacity", transitionDuration: "300ms" }}
+            onError={() => setImgFailed(true)}
+          />
+        ) : (
+          <div
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center text-white font-bold text-xs"
+            style={{ backgroundColor: partner.color }}
+          >
+            {initials}
+          </div>
+        )}
       </div>
-      <p className="text-[11px] text-[#64748B] mt-2 text-center font-medium leading-tight">
+      <p className="text-[10px] sm:text-[11px] text-[#64748B] mt-2 text-center font-medium leading-tight min-h-[24px] flex items-center">
         {partner.name}
       </p>
     </div>
@@ -58,7 +57,7 @@ const PartnerLogo = ({ partner }) => {
 
 export const PartnersSection = () => {
   return (
-    <section data-testid="partners-section" className="px-6 md:px-12 lg:px-24 py-16 md:py-24 bg-white border-t border-gray-100">
+    <section data-testid="partners-section" className="px-6 md:px-12 lg:px-24 py-16 md:py-24 bg-[#F8FAFC]">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <p className="text-sm font-semibold text-[#0088CC] uppercase tracking-wider mb-3">
@@ -75,7 +74,7 @@ export const PartnersSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+        <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4">
           {partners.map((partner) => (
             <PartnerLogo key={partner.domain} partner={partner} />
           ))}

@@ -3,13 +3,6 @@ import { Phone as PhoneIcon, MessageCircle, FileText, X, ArrowRight, CheckCircle
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { toast } from "sonner";
 import axios from "axios";
 
@@ -81,16 +74,21 @@ const MobileFormPopup = ({ onClose }) => {
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Insurance Type</Label>
-              <Select value={product} onValueChange={setProduct}>
-                <SelectTrigger data-testid="mobile-form-product" className="bg-white border-gray-200 rounded-xl h-11 px-4">
-                  <SelectValue placeholder="Select insurance type" />
-                </SelectTrigger>
-                <SelectContent>
+              <div className="relative" data-testid="mobile-form-product">
+                <select
+                  value={product}
+                  onChange={(e) => setProduct(e.target.value)}
+                  className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-white text-sm text-[#1A1A4E] appearance-none cursor-pointer focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 focus:outline-none"
+                >
+                  <option value="" disabled>Select insurance type</option>
                   {INSURANCE_PRODUCTS.map((p) => (
-                    <SelectItem key={p.value} value={p.value}>{p.label}</SelectItem>
+                    <option key={p.value} value={p.value}>{p.label}</option>
                   ))}
-                </SelectContent>
-              </Select>
+                </select>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </div>
+              </div>
             </div>
             <Button data-testid="mobile-form-submit" type="submit" disabled={loading} className="w-full bg-[#FF9F1C] hover:bg-[#FF9F1C]/90 text-[#1A1A4E] font-bold rounded-full h-11 shadow-[0_0_20px_rgba(255,159,28,0.3)] transition-shadow duration-300">
               {loading ? "Submitting..." : "Get Free Quote"}
@@ -108,7 +106,7 @@ export const FloatingWidgets = () => {
 
   return (
     <>
-      {/* Desktop floating widgets - hidden on mobile */}
+      {/* Desktop floating widgets */}
       <div data-testid="floating-widgets" className="fixed bottom-6 right-6 z-40 hidden md:flex flex-col gap-3">
         <a
           href={`https://wa.me/${PHONE_NUMBER}?text=Hi%20Insurrica%2C%20I%27d%20like%20to%20know%20more%20about%20insurance%20plans.`}
@@ -132,39 +130,40 @@ export const FloatingWidgets = () => {
         </a>
       </div>
 
-      {/* Mobile sticky CTA bar - 3 buttons */}
-      <div data-testid="mobile-cta-bar" className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
-        <div className="grid grid-cols-3 h-16">
-          <button
-            data-testid="mobile-cta-form"
-            onClick={() => setShowForm(true)}
-            className="flex flex-col items-center justify-center gap-1 text-[#0088CC] active:bg-[#0088CC]/5"
-          >
-            <FileText className="w-5 h-5" />
-            <span className="text-[10px] font-semibold uppercase tracking-wider">Get Quote</span>
-          </button>
-          <a
-            href={`https://wa.me/${PHONE_NUMBER}?text=Hi%20Insurrica%2C%20I%27d%20like%20to%20know%20more%20about%20insurance%20plans.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-testid="mobile-cta-whatsapp"
-            className="flex flex-col items-center justify-center gap-1 text-[#25D366] active:bg-[#25D366]/5 border-x border-gray-100"
-          >
-            <MessageCircle className="w-5 h-5" />
-            <span className="text-[10px] font-semibold uppercase tracking-wider">WhatsApp</span>
-          </a>
-          <a
-            href="tel:+919727692000"
-            data-testid="mobile-cta-call"
-            className="flex flex-col items-center justify-center gap-1 text-[#FF9F1C] active:bg-[#FF9F1C]/5"
-          >
-            <PhoneIcon className="w-5 h-5" />
-            <span className="text-[10px] font-semibold uppercase tracking-wider">Call Now</span>
-          </a>
+      {/* Mobile sticky CTA bar - positioned above Emergent badge */}
+      <div data-testid="mobile-cta-bar" className="fixed bottom-0 left-0 right-0 z-[9998] md:hidden">
+        <div className="bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+          <div className="grid grid-cols-3 h-14">
+            <button
+              data-testid="mobile-cta-form"
+              onClick={() => setShowForm(true)}
+              className="flex flex-col items-center justify-center gap-0.5 text-[#0088CC] active:bg-[#0088CC]/5"
+            >
+              <FileText className="w-5 h-5" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">Get Quote</span>
+            </button>
+            <a
+              href={`https://wa.me/${PHONE_NUMBER}?text=Hi%20Insurrica%2C%20I%27d%20like%20to%20know%20more%20about%20insurance%20plans.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="mobile-cta-whatsapp"
+              className="flex flex-col items-center justify-center gap-0.5 text-[#25D366] active:bg-[#25D366]/5 border-x border-gray-100"
+            >
+              <MessageCircle className="w-5 h-5" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">WhatsApp</span>
+            </a>
+            <a
+              href="tel:+919727692000"
+              data-testid="mobile-cta-call"
+              className="flex flex-col items-center justify-center gap-0.5 text-[#FF9F1C] active:bg-[#FF9F1C]/5"
+            >
+              <PhoneIcon className="w-5 h-5" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">Call Now</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Mobile form popup */}
       {showForm && <MobileFormPopup onClose={() => setShowForm(false)} />}
     </>
   );

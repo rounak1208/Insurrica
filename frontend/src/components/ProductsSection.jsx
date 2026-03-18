@@ -3,13 +3,6 @@ import { Heart, Car, Users, Home, Plane, Briefcase, Shield, Phone, X, ArrowRight
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { toast } from "sonner";
 import axios from "axios";
 
@@ -117,12 +110,11 @@ const ProductPopup = ({ product, onClose }) => {
     }
   };
 
+  const selectedLabel = INSURANCE_PRODUCTS.find(p => p.value === selectedProduct)?.label || "Select";
+
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4" data-testid="product-popup-overlay">
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-
-      {/* Modal */}
       <div
         data-testid={`product-popup-${product.id}`}
         className="relative bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] w-full max-w-md p-8 space-y-6"
@@ -132,7 +124,6 @@ const ProductPopup = ({ product, onClose }) => {
           onClick={onClose}
           data-testid="popup-close-btn"
           className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-[#64748B]"
-          style={{ transitionProperty: "background-color", transitionDuration: "200ms" }}
         >
           <X className="w-5 h-5" />
         </button>
@@ -166,12 +157,9 @@ const ProductPopup = ({ product, onClose }) => {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="popup-name" className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">
-                Full Name
-              </Label>
+              <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Full Name</Label>
               <Input
                 data-testid="popup-name-input"
-                id="popup-name"
                 placeholder="Enter your full name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -180,14 +168,11 @@ const ProductPopup = ({ product, onClose }) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="popup-phone" className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">
-                Phone Number
-              </Label>
+              <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Phone Number</Label>
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8]" />
                 <Input
                   data-testid="popup-phone-input"
-                  id="popup-phone"
                   type="tel"
                   placeholder="Enter 10-digit mobile number"
                   value={phone}
@@ -198,24 +183,22 @@ const ProductPopup = ({ product, onClose }) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="popup-product" className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">
-                Insurance Type
-              </Label>
-              <Select value={selectedProduct} onValueChange={setSelectedProduct}>
-                <SelectTrigger
-                  data-testid="popup-product-select"
-                  className="bg-white border-gray-200 focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 px-4"
+              <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Insurance Type</Label>
+              <div className="relative" data-testid="popup-product-select">
+                <select
+                  value={selectedProduct}
+                  onChange={(e) => setSelectedProduct(e.target.value)}
+                  className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-sm text-[#1A1A4E] appearance-none cursor-pointer focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 focus:outline-none"
                 >
-                  <SelectValue placeholder="Select insurance type" />
-                </SelectTrigger>
-                <SelectContent>
+                  <option value="" disabled>Select insurance type</option>
                   {INSURANCE_PRODUCTS.map((p) => (
-                    <SelectItem key={p.value} value={p.value}>
-                      {p.label}
-                    </SelectItem>
+                    <option key={p.value} value={p.value}>{p.label}</option>
                   ))}
-                </SelectContent>
-              </Select>
+                </select>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </div>
+              </div>
             </div>
 
             <Button
@@ -255,11 +238,9 @@ export const ProductsSection = () => {
           </p>
         </div>
 
-        {/* Product Grid - Uniform Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {products.map((product) => {
             const Icon = product.icon;
-
             return (
               <div
                 key={product.id}
@@ -273,7 +254,6 @@ export const ProductsSection = () => {
                 }}
                 onClick={() => setActiveProduct(product)}
               >
-                {/* Decorative background circle */}
                 <div
                   className="absolute -right-10 -top-10 w-40 h-40 rounded-full opacity-20 group-hover:opacity-30"
                   style={{
@@ -282,7 +262,6 @@ export const ProductsSection = () => {
                     transitionDuration: "300ms",
                   }}
                 />
-
                 <div className="relative z-10 space-y-4">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center"
@@ -290,10 +269,7 @@ export const ProductsSection = () => {
                   >
                     <Icon className="w-6 h-6" style={{ color: product.color }} />
                   </div>
-                  <h3
-                    className="text-lg font-bold text-[#1A1A4E]"
-                    style={{ fontFamily: "Outfit, sans-serif" }}
-                  >
+                  <h3 className="text-lg font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>
                     {product.title}
                   </h3>
                   <p className="text-sm text-[#64748B] leading-relaxed">{product.desc}</p>
@@ -304,7 +280,6 @@ export const ProductsSection = () => {
         </div>
       </div>
 
-      {/* Product Popup */}
       {activeProduct && (
         <ProductPopup product={activeProduct} onClose={() => setActiveProduct(null)} />
       )}
