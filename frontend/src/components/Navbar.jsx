@@ -36,10 +36,10 @@ export const Navbar = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between h-20">
         {/* Logo */}
         <a href="#" data-testid="navbar-logo" className="flex items-center gap-2">
-          <img src={LOGO_URL} alt="Insurrica Logo" className="h-10 w-auto rounded" />
+          <img src={LOGO_URL} alt="Insurrica Logo" className="h-14 w-auto" style={{ borderRadius: 0, mixBlendMode: "multiply" }} />
         </a>
 
         {/* Desktop Links */}

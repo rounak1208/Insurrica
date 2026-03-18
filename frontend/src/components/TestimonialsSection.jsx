@@ -3,27 +3,35 @@ import { Star } from "lucide-react";
 const testimonials = [
   {
     name: "Priya Sharma",
+    age: 34,
     role: "Software Engineer, Bangalore",
-    text: "Insurrica made it incredibly easy to compare health insurance plans. Saved ₹8,000 on my family floater and the cashless claim process was seamless!",
+    text: "My father was hospitalised for a major surgery and the bill came to over ₹10 Lakhs. Insurrica's team got the entire claim cashless-approved within hours. They coordinated everything with the hospital and insurer — we didn't have to pay a single rupee out of pocket. Truly life-saving support!",
     rating: 5,
+    avatar: "https://images.unsplash.com/photo-1611432579699-484f7990b127?w=120&h=120&fit=crop&crop=face",
   },
   {
     name: "Rajesh Patel",
+    age: 42,
     role: "Business Owner, Mumbai",
     text: "Switched my motor insurance through Insurrica. Got the same coverage for 30% less. Their claims support team is responsive and professional.",
     rating: 5,
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=120&h=120&fit=crop&crop=face",
   },
   {
     name: "Anita Desai",
+    age: 38,
     role: "Teacher, Delhi",
     text: "After my husband passed, Insurrica's team handled the entire term insurance claim. They were empathetic and efficient during the hardest time of my life.",
     rating: 5,
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop&crop=face",
   },
   {
     name: "Vikram Singh",
+    age: 29,
     role: "Freelancer, Jaipur",
     text: "As a freelancer, finding the right health plan was confusing. Insurrica's expert walked me through every option and helped me pick the perfect plan.",
     rating: 5,
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face",
   },
 ];
 
@@ -66,11 +74,13 @@ export const TestimonialsSection = () => {
                 "{t.text}"
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#0088CC]/10 flex items-center justify-center text-[#0088CC] font-bold text-sm">
-                  {t.name.charAt(0)}
-                </div>
+                <img
+                  src={t.avatar}
+                  alt={t.name}
+                  className="w-11 h-11 rounded-full object-cover border-2 border-white shadow-sm"
+                />
                 <div>
-                  <p className="text-sm font-semibold text-[#1A1A4E]">{t.name}</p>
+                  <p className="text-sm font-semibold text-[#1A1A4E]">{t.name}, {t.age}</p>
                   <p className="text-xs text-[#94A3B8]">{t.role}</p>
                 </div>
               </div>
