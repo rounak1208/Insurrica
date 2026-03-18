@@ -20,8 +20,12 @@ const partners = [
 ];
 
 const PartnerLogo = ({ partner }) => {
-  const [imgFailed, setImgFailed] = useState(false);
+  const [primaryFailed, setPrimaryFailed] = useState(false);
+  const [secondaryFailed, setSecondaryFailed] = useState(false);
   const initials = partner.name.split(" ").map(w => w[0]).join("").slice(0, 3);
+
+  const primarySrc = `https://logo.clearbit.com/${partner.domain}?size=128`;
+  const secondarySrc = `https://www.google.com/s2/favicons?domain=${partner.domain}&sz=128`;
 
   return (
     <div
@@ -30,14 +34,23 @@ const PartnerLogo = ({ partner }) => {
       style={{ transitionProperty: "border-color, box-shadow", transitionDuration: "300ms" }}
     >
       <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white overflow-hidden">
-        {!imgFailed ? (
+        {!primaryFailed ? (
           <img
-            src={`https://logo.clearbit.com/${partner.domain}?size=128`}
+            src={primarySrc}
             alt={`${partner.name} logo`}
             loading="lazy"
             className="max-w-[48px] max-h-[48px] sm:max-w-[56px] sm:max-h-[56px] object-contain opacity-80 group-hover:opacity-100"
             style={{ transitionProperty: "opacity", transitionDuration: "300ms" }}
-            onError={() => setImgFailed(true)}
+            onError={() => setPrimaryFailed(true)}
+          />
+        ) : !secondaryFailed ? (
+          <img
+            src={secondarySrc}
+            alt={`${partner.name} logo`}
+            loading="lazy"
+            className="w-10 h-10 sm:w-12 sm:h-12 object-contain opacity-80 group-hover:opacity-100"
+            style={{ transitionProperty: "opacity", transitionDuration: "300ms" }}
+            onError={() => setSecondaryFailed(true)}
           />
         ) : (
           <div
