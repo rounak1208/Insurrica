@@ -5,9 +5,11 @@ import { HeroSection } from "@/components/HeroSection";
 import { ProductsSection } from "@/components/ProductsSection";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { StatsSection } from "@/components/StatsSection";
+import { PartnersSection } from "@/components/PartnersSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { FAQSection } from "@/components/FAQSection";
 import { Footer } from "@/components/Footer";
+import { FloatingWidgets } from "@/components/FloatingWidgets";
 
 function App() {
   return (
@@ -24,6 +26,9 @@ function App() {
         <WhyChooseUs />
       </div>
       <StatsSection />
+      <div id="partners">
+        <PartnersSection />
+      </div>
       <div id="testimonials">
         <TestimonialsSection />
       </div>
@@ -31,6 +36,7 @@ function App() {
         <FAQSection />
       </div>
       <Footer />
+      <FloatingWidgets />
     </div>
   );
 }

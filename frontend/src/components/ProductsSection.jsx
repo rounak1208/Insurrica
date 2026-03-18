@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Heart, Car, Users, Home, Plane, Briefcase, Shield, ArrowUpRight, Phone, X, ArrowRight, CheckCircle } from "lucide-react";
+import { Heart, Car, Users, Home, Plane, Briefcase, Shield, Phone, X, ArrowRight, CheckCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -310,25 +310,6 @@ export const ProductsSection = () => {
                     {product.title}
                   </h3>
                   <p className="text-sm text-[#64748B] leading-relaxed">{product.desc}</p>
-                </div>
-
-                <div className="relative z-10 mt-auto pt-4">
-                  <button
-                    data-testid={`explore-btn-${product.id}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveProduct(product);
-                    }}
-                    className="inline-flex items-center gap-1 text-sm font-semibold group-hover:gap-2"
-                    style={{
-                      color: product.color,
-                      transitionProperty: "gap",
-                      transitionDuration: "300ms",
-                    }}
-                  >
-                    Explore
-                    <ArrowUpRight className="w-4 h-4" />
-                  </button>
                 </div>
               </div>
             );

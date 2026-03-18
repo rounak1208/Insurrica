@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 const stats = [
   { label: "Policies Sold", value: 10000, suffix: "+", prefix: "" },
@@ -7,40 +7,47 @@ const stats = [
   { label: "Happy Customers", value: 98, suffix: "%", prefix: "" },
 ];
 
-const useCountUp = (end, duration = 2000, startCounting = false) => {
-  const [count, setCount] = useState(0);
-  const countRef = useRef(null);
+const StatItem = ({ stat, startCounting }) => {
+  const [displayValue, setDisplayValue] = useState(0);
+  const hasAnimated = useRef(false);
+  const rafRef = useRef(null);
 
-  useEffect(() => {
-    if (!startCounting) return;
+  const animate = useCallback(() => {
+    if (hasAnimated.current) return;
+    hasAnimated.current = true;
+    const duration = 2000;
     let startTime = null;
-    const animate = (timestamp) => {
+
+    const step = (timestamp) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * end));
+      setDisplayValue(Math.floor(eased * stat.value));
       if (progress < 1) {
-        countRef.current = requestAnimationFrame(animate);
+        rafRef.current = requestAnimationFrame(step);
+      } else {
+        setDisplayValue(stat.value);
       }
     };
-    countRef.current = requestAnimationFrame(animate);
+    rafRef.current = requestAnimationFrame(step);
+  }, [stat.value]);
+
+  useEffect(() => {
+    if (startCounting && !hasAnimated.current) {
+      animate();
+    }
     return () => {
-      if (countRef.current) cancelAnimationFrame(countRef.current);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [end, duration, startCounting]);
+  }, [startCounting, animate]);
 
-  return count;
-};
-
-const StatItem = ({ stat, startCounting }) => {
-  const count = useCountUp(stat.value, 2000, startCounting);
   return (
     <div data-testid={`stat-${stat.label.toLowerCase().replace(/\s/g, "-")}`} className="text-center space-y-2">
       <p
-        className="text-4xl sm:text-5xl font-bold text-white"
-        style={{ fontFamily: "Outfit, sans-serif" }}
+        className="text-4xl sm:text-5xl font-bold text-white tabular-nums"
+        style={{ fontFamily: "Outfit, sans-serif", fontVariantNumeric: "tabular-nums" }}
       >
-        {stat.prefix}{count.toLocaleString()}{stat.suffix}
+        {stat.prefix}{displayValue.toLocaleString()}{stat.suffix}
       </p>
       <p className="text-sm text-white/70 uppercase tracking-wider font-medium">
         {stat.label}
@@ -52,19 +59,24 @@ const StatItem = ({ stat, startCounting }) => {
 export const StatsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
+  const observerRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const el = ref.current;
+    if (!el) return;
+    observerRef.current = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect();
+          observerRef.current.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    observerRef.current.observe(el);
+    return () => {
+      if (observerRef.current) observerRef.current.disconnect();
+    };
   }, []);
 
   return (
@@ -77,7 +89,7 @@ export const StatsSection = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16">
           {stats.map((stat, i) => (
-            <StatItem key={i} stat={stat} startCounting={isVisible} />
+            <StatItem key={stat.label} stat={stat} startCounting={isVisible} />
           ))}
         </div>
       </div>
