@@ -13,7 +13,7 @@ html {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #F8FAFC;
@@ -26,7 +26,7 @@ html {
   background: #94A3B8;
 }
 
-/* Fade-in animation for sections */
+/* Fade-in animation for popups */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -40,4 +40,21 @@ html {
 
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Mobile bottom bar spacing */
+@media (max-width: 767px) {
+  footer {
+    padding-bottom: 4rem !important;
+  }
+}
+
+/* Optimize paint performance for animated elements */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Reduce layout shift for images */
+img {
+  content-visibility: auto;
 }

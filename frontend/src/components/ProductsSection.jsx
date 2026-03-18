@@ -33,7 +33,6 @@ const products = [
     icon: Heart,
     color: "#EF4444",
     bgColor: "#FEF2F2",
-    size: "large",
   },
   {
     id: "motor",
@@ -42,7 +41,6 @@ const products = [
     icon: Car,
     color: "#0088CC",
     bgColor: "#F0F9FF",
-    size: "medium",
   },
   {
     id: "term",
@@ -51,43 +49,38 @@ const products = [
     icon: Shield,
     color: "#1A1A4E",
     bgColor: "#EEF2FF",
-    size: "medium",
   },
   {
     id: "life",
     title: "Life Insurance",
-    desc: "Build wealth while staying protected.",
+    desc: "Build wealth while staying protected with savings + insurance.",
     icon: Users,
     color: "#10B981",
     bgColor: "#F0FDF4",
-    size: "small",
   },
   {
     id: "home",
     title: "Home Insurance",
-    desc: "Shield your home from unforeseen damages.",
+    desc: "Shield your home from unforeseen damages and natural disasters.",
     icon: Home,
     color: "#F59E0B",
     bgColor: "#FFFBEB",
-    size: "small",
   },
   {
     id: "travel",
     title: "Travel Insurance",
-    desc: "Travel worry-free, anywhere in the world.",
+    desc: "Travel worry-free, anywhere in the world with full coverage.",
     icon: Plane,
     color: "#8B5CF6",
     bgColor: "#F5F3FF",
-    size: "small",
   },
   {
     id: "business",
     title: "Business Insurance",
-    desc: "Comprehensive protection for your enterprise.",
+    desc: "Comprehensive protection for your enterprise and employees.",
     icon: Briefcase,
     color: "#06B6D4",
     bgColor: "#ECFEFF",
-    size: "small",
   },
 ];
 
@@ -262,24 +255,18 @@ export const ProductsSection = () => {
           </p>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 auto-rows-[200px]">
+        {/* Product Grid - Uniform Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {products.map((product) => {
             const Icon = product.icon;
-            const isLarge = product.size === "large";
-            const isMedium = product.size === "medium";
 
             return (
               <div
                 key={product.id}
                 data-testid={`product-card-${product.id}`}
-                className={`
-                  group relative bg-white border border-gray-100 rounded-2xl p-7 flex flex-col justify-between
+                className="group relative bg-white border border-gray-100 rounded-2xl p-7 flex flex-col
                   hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1
-                  cursor-pointer overflow-hidden
-                  ${isLarge ? "sm:col-span-2 sm:row-span-2" : ""}
-                  ${isMedium ? "sm:row-span-2" : ""}
-                `}
+                  cursor-pointer overflow-hidden min-h-[200px]"
                 style={{
                   transitionProperty: "box-shadow, transform",
                   transitionDuration: "300ms",

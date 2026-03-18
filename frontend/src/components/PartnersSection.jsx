@@ -1,21 +1,60 @@
 const partners = [
-  { name: "LIC", domain: "licindia.in" },
-  { name: "HDFC Ergo", domain: "hdfcergo.com" },
-  { name: "ICICI Lombard", domain: "icicilombard.com" },
-  { name: "Star Health", domain: "starhealth.in" },
-  { name: "Bajaj Allianz", domain: "bajajallianz.com" },
-  { name: "Tata AIG", domain: "tataaig.com" },
-  { name: "New India Assurance", domain: "newindia.co.in" },
-  { name: "SBI General", domain: "sbigeneral.in" },
-  { name: "Max Life", domain: "maxlifeinsurance.com" },
-  { name: "Reliance General", domain: "reliancegeneral.co.in" },
-  { name: "Kotak Life", domain: "kotaklife.com" },
-  { name: "Aditya Birla Health", domain: "adityabirlacapital.com" },
-  { name: "United India", domain: "uiic.co.in" },
-  { name: "Oriental Insurance", domain: "orientalinsurance.org.in" },
-  { name: "Niva Bupa", domain: "nivabupa.com" },
-  { name: "Care Health", domain: "careinsurance.com" },
+  { name: "LIC of India", domain: "licindia.in", color: "#003366" },
+  { name: "HDFC Ergo", domain: "hdfcergo.com", color: "#004B8D" },
+  { name: "ICICI Lombard", domain: "icicilombard.com", color: "#B02A30" },
+  { name: "Star Health", domain: "starhealth.in", color: "#ED1C24" },
+  { name: "Bajaj Allianz", domain: "bajajallianz.com", color: "#003DA5" },
+  { name: "Tata AIG", domain: "tataaig.com", color: "#003366" },
+  { name: "New India Assurance", domain: "newindia.co.in", color: "#1B3C73" },
+  { name: "SBI General", domain: "sbigeneral.in", color: "#22409A" },
+  { name: "Max Life", domain: "maxlifeinsurance.com", color: "#002E6E" },
+  { name: "Reliance General", domain: "reliancegeneral.co.in", color: "#002F87" },
+  { name: "Kotak Life", domain: "kotaklife.com", color: "#ED1C24" },
+  { name: "Niva Bupa", domain: "nivabupa.com", color: "#00A89D" },
+  { name: "Care Health", domain: "careinsurance.com", color: "#E8352A" },
+  { name: "Aditya Birla", domain: "adityabirlacapital.com", color: "#C8102E" },
+  { name: "United India", domain: "uiic.co.in", color: "#006837" },
+  { name: "Oriental Insurance", domain: "orientalinsurance.org.in", color: "#003D7C" },
 ];
+
+const PartnerLogo = ({ partner }) => {
+  return (
+    <div
+      data-testid={`partner-logo-${partner.domain}`}
+      className="group flex flex-col items-center justify-center p-4 rounded-xl bg-[#F8FAFC] border border-transparent hover:border-[#0088CC]/10 hover:shadow-sm"
+      style={{
+        transitionProperty: "border-color, box-shadow",
+        transitionDuration: "300ms",
+      }}
+    >
+      <div className="w-16 h-16 flex items-center justify-center">
+        <img
+          src={`https://logo.clearbit.com/${partner.domain}?size=80`}
+          alt={`${partner.name} logo`}
+          loading="lazy"
+          className="max-w-full max-h-full object-contain opacity-70 group-hover:opacity-100"
+          style={{
+            transitionProperty: "opacity",
+            transitionDuration: "300ms",
+          }}
+          onError={(e) => {
+            e.target.style.display = "none";
+            e.target.parentElement.querySelector('.fallback-logo').style.display = "flex";
+          }}
+        />
+        <div
+          className="fallback-logo w-12 h-12 rounded-xl items-center justify-center text-white font-bold text-sm hidden"
+          style={{ backgroundColor: partner.color, display: "none" }}
+        >
+          {partner.name.split(" ").map(w => w[0]).join("").slice(0, 2)}
+        </div>
+      </div>
+      <p className="text-[11px] text-[#64748B] mt-2 text-center font-medium leading-tight">
+        {partner.name}
+      </p>
+    </div>
+  );
+};
 
 export const PartnersSection = () => {
   return (
@@ -36,39 +75,9 @@ export const PartnersSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
           {partners.map((partner) => (
-            <div
-              key={partner.domain}
-              data-testid={`partner-logo-${partner.domain}`}
-              className="group flex flex-col items-center justify-center p-4 rounded-xl bg-[#F8FAFC] border border-transparent hover:border-[#0088CC]/10 hover:shadow-sm"
-              style={{
-                transitionProperty: "border-color, box-shadow",
-                transitionDuration: "300ms",
-              }}
-            >
-              <img
-                src={`https://logo.clearbit.com/${partner.domain}?size=80`}
-                alt={partner.name}
-                className="w-12 h-12 object-contain grayscale group-hover:grayscale-0"
-                style={{
-                  transitionProperty: "filter",
-                  transitionDuration: "300ms",
-                }}
-                onError={(e) => {
-                  e.target.style.display = "none";
-                  e.target.nextSibling.style.display = "flex";
-                }}
-              />
-              <div
-                className="w-12 h-12 rounded-full bg-[#0088CC]/10 items-center justify-center text-[#0088CC] font-bold text-xs hidden"
-              >
-                {partner.name.charAt(0)}
-              </div>
-              <p className="text-[10px] text-[#94A3B8] mt-2 text-center font-medium leading-tight">
-                {partner.name}
-              </p>
-            </div>
+            <PartnerLogo key={partner.domain} partner={partner} />
           ))}
         </div>
       </div>
