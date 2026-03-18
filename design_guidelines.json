@@ -1,0 +1,182 @@
+{
+  "identity": {
+    "role": "E1 - The Anti-AI Designer",
+    "mission": "Create a trust-building, high-converting insurance landing page that breaks the generic 'corporate blue' mold by introducing Swiss-style typography, 'Bento' grids, and abstract 3D metaphors.",
+    "tone": "Scientific Clarity, Emotional Warmth, Engineering Precision"
+  },
+  "theme": {
+    "mode": "light",
+    "emotional_archetype": "Archetype 4: Swiss & High-Contrast (Authority) + Archetype 1: Organic (Trust)",
+    "vibe": "Medical Cleanliness meets Fintech Speed"
+  },
+  "typography": {
+    "headings": {
+      "family": "Outfit",
+      "weights": ["600", "700"],
+      "tracking": "-0.02em",
+      "usage": "Use for all Hero titles, Section headers (H1-H3). It is geometric yet friendly."
+    },
+    "body": {
+      "family": "Inter",
+      "weights": ["400", "500"],
+      "usage": "Use for all paragraphs, labels, and data."
+    },
+    "pairing_strategy": "The 'Soft Utility' Archetype: Friendly geometric headings + Clean utilitarian body."
+  },
+  "colors": {
+    "primary": "#0088CC",
+    "primary_foreground": "#FFFFFF",
+    "secondary": "#1A1A4E",
+    "secondary_foreground": "#FFFFFF",
+    "accent": "#FF9F1C",
+    "accent_foreground": "#1A1A4E",
+    "background": "#F8FAFC",
+    "surface": "#FFFFFF",
+    "border": "#E2E8F0",
+    "success": "#10B981",
+    "warning": "#F59E0B",
+    "error": "#EF4444",
+    "gradient_hero": "linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%)",
+    "glass_surface": "rgba(255, 255, 255, 0.7)"
+  },
+  "spacing_and_layout": {
+    "base_scale": "Tailwind Standard",
+    "container_padding": "px-6 md:px-12 lg:px-24",
+    "section_spacing": "py-20 md:py-32",
+    "grid_strategy": "The 'Bento' Grid for Products: Mix 1x1, 2x1, and 2x2 cards to create visual rhythm.",
+    "border_radius": {
+      "outer": "rounded-2xl",
+      "inner": "rounded-xl",
+      "button": "rounded-full"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-white hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 rounded-full px-8 py-6 font-semibold",
+      "secondary": "bg-white text-secondary border border-gray-200 hover:bg-gray-50 rounded-full px-8 py-6 font-medium",
+      "accent": "bg-accent text-accent-foreground hover:bg-accent/90 shadow-[0_0_20px_rgba(255,159,28,0.3)] rounded-full px-8 py-6 font-bold tracking-wide"
+    },
+    "cards": {
+      "product_card": "bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col justify-between h-full group",
+      "testimonial_card": "bg-slate-50 border border-transparent p-8 rounded-2xl"
+    },
+    "forms": {
+      "input": "bg-white border-gray-200 focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-xl h-12 px-4 transition-all",
+      "label": "text-sm font-semibold text-gray-600 mb-2 block uppercase tracking-wider"
+    },
+    "visual_enhancers": {
+      "glassmorphism": "backdrop-blur-xl bg-white/80 border border-white/20 shadow-lg",
+      "gradients": "Subtle mesh gradients in backgrounds, never on text.",
+      "shadows": "Layered shadows: 'shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)]'"
+    }
+  },
+  "assets": {
+    "logo_url": "https://customer-assets.emergentagent.com/job_e5ad9e76-2dfd-4be2-9284-b82c004c3b00/artifacts/qbnkrpu9_IMG_6121.jpeg",
+    "images": {
+      "hero_abstract": {
+        "url": "https://images.unsplash.com/photo-1529261233619-6afa28f5da3d?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "alt": "Abstract Blue Protection Shield",
+        "description": "Use as a subtle background texture or blended overlay in the Hero section."
+      },
+      "products": {
+        "health": {
+          "url": "https://images.unsplash.com/photo-1720293315574-911411515624?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "alt": "Heart Protection Icon",
+          "description": "3D Heart with ribbon"
+        },
+        "car": {
+          "url": "https://images.unsplash.com/photo-1653226538793-f54b7a4dc41b?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "alt": "Comprehensive Car Protection",
+          "description": "Abstract wire/glass sculpture representing complex protection"
+        },
+        "home": {
+          "url": "https://images.unsplash.com/photo-1631799200294-0f1212ae90f1?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "alt": "Home Insurance",
+          "description": "Minimalist model house"
+        },
+        "travel": {
+          "url": "https://images.unsplash.com/photo-1644313141721-dbc12d922e60?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "alt": "Travel Insurance",
+          "description": "Airplane over mountains"
+        },
+        "term_life": {
+          "url": "https://images.unsplash.com/photo-1763275530166-5e265bf06450?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "alt": "Family Protection",
+          "description": "Father holding child at sunset"
+        }
+      },
+      "trust": {
+        "team": {
+          "url": "https://images.unsplash.com/photo-1716703742352-0bbdb45f505b?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "alt": "Professional Team",
+          "description": "Diverse team of professionals"
+        }
+      }
+    }
+  },
+  "sections_breakdown": {
+    "hero": {
+      "layout": "Split Screen (Left: Content, Right: Visual)",
+      "content": "Headline: 'Compare smarter. Insure better.' Subhead: 'Instant quotes from India's top insurers. Zero paperwork. 100% Claims Assistance.' CTA: Lead Form (Name, Phone, Product Dropdown).",
+      "visual": "Use the 'hero_abstract' image as a high-quality textured background or mask.",
+      "background": "Soft Gradient #F0F9FF to #FFFFFF"
+    },
+    "products": {
+      "title": "Comprehensive Protection",
+      "layout": "Bento Grid (mix of card sizes)",
+      "cards": [
+        "Health Insurance (Large)",
+        "Car Insurance (Medium)",
+        "Term Life (Medium)",
+        "Home Insurance (Small)",
+        "Travel Insurance (Small)",
+        "Business Insurance (Small)"
+      ]
+    },
+    "why_choose_us": {
+      "layout": "3-Column Grid with Large Icons",
+      "features": [
+        {"title": "50+ Insurers", "desc": "Compare policies from India's top trusted brands."},
+        {"title": "30-Min Claims", "desc": "Fastest claim settlement support in the industry."},
+        {"title": "Best Price Guarantee", "desc": "We match or beat any direct quote."}
+      ]
+    },
+    "stats": {
+      "layout": "Full Width Dark Section (bg-secondary)",
+      "content": [
+        {"label": "Policies Sold", "value": "1M+"},
+        {"label": "Claims Settled", "value": "₹500Cr+"},
+        {"label": "Insurer Partners", "value": "50+"}
+      ]
+    },
+    "testimonials": {
+      "layout": "Horizontal Scroll",
+      "style": "Cards with glassmorphism effect"
+    },
+    "faq": {
+      "layout": "Accordion (Shadcn)",
+      "style": "Clean, minimal borders"
+    }
+  },
+  "universal_guidelines": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy",
+    "Use glass-morphism effects with backdrop filters (12-24px blur)",
+    "You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file. This disrupts the human natural reading flow of text",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories (especially sponsor logos) = main agent will use placeholder text which is FORBIDDEN",
+    "Prioritize using pre-existing components from src/components/ui when applicable",
+    "Create new components that match the style and conventions of existing components when needed",
+    "Components MUST use named exports (export const ComponentName = ...)",
+    "Pages MUST use default exports (export default function PageName() {...})",
+    "Use sonner for toasts. Sonner component are located in /app/src/components/ui/sonner.tsx",
+    "All interactive and key informational elements MUST include a data-testid attribute to facilitate robust automated testing."
+  ]
+}
