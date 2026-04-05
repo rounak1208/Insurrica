@@ -12,7 +12,12 @@ body {
     background: #F8FAFC;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Outfit', sans-serif;
     letter-spacing: -0.02em;
 }
@@ -55,6 +60,7 @@ code {
     * {
         @apply border-border;
     }
+
     body {
         @apply bg-background text-foreground;
     }
@@ -64,7 +70,8 @@ code {
     [data-debug-wrapper="true"] {
         display: contents !important;
     }
-    [data-debug-wrapper="true"] > * {
+
+    [data-debug-wrapper="true"]>* {
         margin-left: inherit;
         margin-right: inherit;
         margin-top: inherit;

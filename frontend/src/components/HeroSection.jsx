@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { ShieldCheck, ArrowRight, CheckCircle, Phone } from "lucide-react";
 import axios from "axios";
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const API = (process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_BACKEND_URL !== "undefined") ? `${process.env.REACT_APP_BACKEND_URL}/api` : "http://localhost:8000/api";
 
 const INSURANCE_PRODUCTS = [
   { value: "health", label: "Health Insurance" },

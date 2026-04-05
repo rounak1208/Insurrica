@@ -5,8 +5,9 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Menu, X, Phone, ArrowRight, CheckCircle } from "lucide-react";
 import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const API = (process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_BACKEND_URL !== "undefined") ? `${process.env.REACT_APP_BACKEND_URL}/api` : "http://localhost:8000/api";
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_e5ad9e76-2dfd-4be2-9284-b82c004c3b00/artifacts/qbnkrpu9_IMG_6121.jpeg";
 
 const INSURANCE_PRODUCTS = [
@@ -32,6 +33,7 @@ const NavPopup = ({ onClose }) => {
   const [product, setProduct] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,6 +50,10 @@ const NavPopup = ({ onClose }) => {
       await axios.post(`${API}/leads`, { name, phone, insurance_product: product });
       setSubmitted(true);
       toast.success("We'll call you back shortly!");
+      setTimeout(() => {
+        onClose();
+        navigate(`/${product}-insurance`);
+      }, 1500);
     } catch {
       toast.error("Something went wrong. Please try again.");
     } finally {
@@ -108,7 +114,7 @@ const NavPopup = ({ onClose }) => {
                   ))}
                 </select>
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 </div>
               </div>
             </div>
@@ -127,6 +133,8 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -134,24 +142,39 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  // Handle hash scrolling when coming from a different route
+  useEffect(() => {
+    if (location.hash && location.pathname === "/") {
+      const el = document.querySelector(location.hash);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   const scrollTo = (href) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (location.pathname !== "/") {
+      navigate(`/${href}`);
+    } else {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
     <>
       <nav
         data-testid="navbar"
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-          scrolled ? "bg-white/90 backdrop-blur-xl border-b border-gray-100 shadow-sm" : "bg-transparent"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${scrolled || location.pathname !== '/' ? "bg-white/20 backdrop-blur-3xl border-b border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.08)]" : "bg-transparent"
+          }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between h-20">
-          <a href="#" data-testid="navbar-logo" className="flex items-center gap-2">
-            <img src={LOGO_URL} alt="Insurrica Logo" className="h-14 w-auto" style={{ borderRadius: 0, mixBlendMode: "multiply" }} />
-          </a>
+        <button onClick={() => navigate("/")} data-testid="navbar-logo" className="absolute left-4 md:left-8 top-0 h-20 flex items-center z-10 transition-transform hover:scale-105">
+          <img src={LOGO_URL} alt="Insurrica Logo" className="h-16 md:h-20 w-auto object-contain" style={{ borderRadius: 0, mixBlendMode: "multiply" }} />
+        </button>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-end h-20">
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <button key={link.href} onClick={() => scrollTo(link.href)} className="text-sm font-medium text-[#475569] hover:text-[#0088CC] transition-colors duration-200">
