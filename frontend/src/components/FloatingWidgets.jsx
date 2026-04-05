@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import axios from "axios";
 
-const API = `${process.env.REACT_APP_BACKEND_URL || "http://localhost:8000"}/api`;
+const API = (process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_BACKEND_URL !== "undefined") ? `${process.env.REACT_APP_BACKEND_URL}/api` : "/api";
 const PHONE_NUMBER = "919727692000";
 
 const INSURANCE_PRODUCTS = [

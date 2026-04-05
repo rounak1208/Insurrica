@@ -7,7 +7,7 @@ import { Menu, X, Phone, ArrowRight, CheckCircle } from "lucide-react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const API = (process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_BACKEND_URL !== "undefined") ? `${process.env.REACT_APP_BACKEND_URL}/api` : "http://localhost:8000/api";
+const API = (process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_BACKEND_URL !== "undefined") ? `${process.env.REACT_APP_BACKEND_URL}/api` : "/api";
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_e5ad9e76-2dfd-4be2-9284-b82c004c3b00/artifacts/qbnkrpu9_IMG_6121.jpeg";
 
 const INSURANCE_PRODUCTS = [
