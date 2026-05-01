@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -9,58 +8,34 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { toast } from "sonner";
 import { ShieldCheck, ArrowRight, CheckCircle, Phone } from "lucide-react";
-import axios from "axios";
-
-const API = (process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_BACKEND_URL !== "undefined") ? `${process.env.REACT_APP_BACKEND_URL}/api` : "/api";
+import { useLeadForm } from "../hooks/useLeadForm";
 
 const INSURANCE_PRODUCTS = [
   { value: "health", label: "Health Insurance" },
   { value: "motor", label: "Motor Insurance" },
   { value: "life", label: "Life Insurance" },
-  { value: "term", label: "Term Insurance" },
+  { value: "term", label: "Term Life Insurance" },
   { value: "travel", label: "Travel Insurance" },
   { value: "home", label: "Home Insurance" },
   { value: "business", label: "Business Insurance" },
 ];
 
 export const HeroSection = () => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [product, setProduct] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name || !phone || !product) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-    if (phone.length < 10) {
-      toast.error("Please enter a valid phone number");
-      return;
-    }
-    setLoading(true);
-    try {
-      await axios.post(`${API}/leads`, {
-        name,
-        phone,
-        insurance_product: product,
-      });
-      setSubmitted(true);
-      toast.success("We'll call you back shortly!");
-      setName("");
-      setPhone("");
-      setProduct("");
-      setTimeout(() => setSubmitted(false), 4000);
-    } catch {
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    name, setName,
+    phone, handlePhoneChange,
+    product, setProduct,
+    loading, submitted, setSubmitted,
+    handleSubmit, reset,
+  } = useLeadForm({
+    onSuccess: () => {
+      setTimeout(() => {
+        reset();
+        setSubmitted(false);
+      }, 4000);
+    },
+  });
 
   return (
     <section
@@ -134,7 +109,7 @@ export const HeroSection = () => {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={(e) => handleSubmit(e)} className="space-y-5">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">
                       Full Name
@@ -161,7 +136,7 @@ export const HeroSection = () => {
                         type="tel"
                         placeholder="Enter 10-digit mobile number"
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                        onChange={(e) => handlePhoneChange(e.target.value)}
                         className="bg-white border-gray-200 focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 pl-11 pr-4"
                       />
                     </div>

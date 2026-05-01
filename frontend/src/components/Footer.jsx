@@ -1,6 +1,6 @@
 import { Phone, Mail, MapPin } from "lucide-react";
 
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_e5ad9e76-2dfd-4be2-9284-b82c004c3b00/artifacts/qbnkrpu9_IMG_6121.jpeg";
+const LOGO_URL = "/logo.jpeg";
 
 export const Footer = () => {
   const scrollTo = (href) => {

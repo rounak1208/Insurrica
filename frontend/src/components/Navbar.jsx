@@ -2,13 +2,11 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
 import { Menu, X, Phone, ArrowRight, CheckCircle } from "lucide-react";
-import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useLeadForm } from "../hooks/useLeadForm";
 
-const API = (process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_BACKEND_URL !== "undefined") ? `${process.env.REACT_APP_BACKEND_URL}/api` : "/api";
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_e5ad9e76-2dfd-4be2-9284-b82c004c3b00/artifacts/qbnkrpu9_IMG_6121.jpeg";
+const LOGO_URL = "/logo.jpeg";
 
 const INSURANCE_PRODUCTS = [
   { value: "health", label: "Health Insurance" },
@@ -28,36 +26,24 @@ const navLinks = [
 ];
 
 const NavPopup = ({ onClose }) => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [product, setProduct] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
+  const {
+    name, setName,
+    phone, handlePhoneChange,
+    product, setProduct,
+    loading, submitted,
+    handleSubmit,
+  } = useLeadForm({
+    onSuccess: () => {},
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name || !phone || !product) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-    if (phone.length < 10) {
-      toast.error("Please enter a valid phone number");
-      return;
-    }
-    setLoading(true);
-    try {
-      await axios.post(`${API}/leads`, { name, phone, insurance_product: product });
-      setSubmitted(true);
-      toast.success("We'll call you back shortly!");
+  const onSubmit = async (e) => {
+    const success = await handleSubmit(e);
+    if (success) {
       setTimeout(() => {
         onClose();
         navigate(`/${product}-insurance`);
       }, 1500);
-    } catch {
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -88,7 +74,7 @@ const NavPopup = ({ onClose }) => {
             <Button onClick={onClose} className="bg-[#0088CC] hover:bg-[#0088CC]/90 text-white rounded-full px-8 mt-2">Close</Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={onSubmit} className="space-y-5">
             <div className="space-y-2">
               <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Full Name</Label>
               <Input data-testid="nav-popup-name" placeholder="Enter your full name" value={name} onChange={(e) => setName(e.target.value)} className="bg-white border-gray-200 focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 px-4" />
@@ -97,7 +83,7 @@ const NavPopup = ({ onClose }) => {
               <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Phone Number</Label>
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8]" />
-                <Input data-testid="nav-popup-phone" type="tel" placeholder="Enter 10-digit mobile number" value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))} className="bg-white border-gray-200 focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 pl-11 pr-4" />
+                <Input data-testid="nav-popup-phone" type="tel" placeholder="Enter 10-digit mobile number" value={phone} onChange={(e) => handlePhoneChange(e.target.value)} className="bg-white border-gray-200 focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 pl-11 pr-4" />
               </div>
             </div>
             <div className="space-y-2">

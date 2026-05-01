@@ -1,49 +1,26 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { ArrowRight, CheckCircle, Phone, HelpCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import axios from "axios";
+import { useLeadForm } from "../hooks/useLeadForm";
+import { CompareHealthPlans } from "../components/CompareHealthPlans";
+import { ConsultationSection } from "../components/ConsultationSection";
 
-const API = (process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_BACKEND_URL !== "undefined") ? `${process.env.REACT_APP_BACKEND_URL}/api` : "/api";
 
 export const InsuranceProductPage = ({ data }) => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const {
+    name, setName,
+    phone, handlePhoneChange,
+    loading, submitted,
+    handleSubmit,
+  } = useLeadForm({ defaultProduct: data.id });
 
-  // Re-scroll to top when component receives new data (i.e. navigation)
-  useState(() => {
+  // Scroll to top when navigating between product pages
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [data.id]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name || !phone) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-    if (phone.length < 10) {
-      toast.error("Please enter a valid phone number");
-      return;
-    }
-    setLoading(true);
-    try {
-      await axios.post(`${API}/leads`, {
-        name,
-        phone,
-        insurance_product: data.id,
-      });
-      setSubmitted(true);
-      toast.success("We'll call you back shortly!");
-    } catch {
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="bg-[#F8FAFC] pb-24">
@@ -63,9 +40,14 @@ export const InsuranceProductPage = ({ data }) => {
               {data.subtitle}
             </p>
             <div className="flex items-center gap-4 pt-4">
-              <div className="flex -space-x-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-gray-200" />
+              <div className="flex -space-x-3">
+                {[
+                  "https://images.unsplash.com/photo-1771240730126-594a8ab66be1?w=150&h=150&fit=crop&crop=face",
+                  "https://images.unsplash.com/photo-1752738372136-2602aaafdcb7?w=150&h=150&fit=crop&crop=face",
+                  "https://images.unsplash.com/photo-1528082414335-adbd64f18d12?w=150&h=150&fit=crop&crop=face",
+                  "https://images.unsplash.com/photo-1699860777054-13e8d1d6245a?w=150&h=150&fit=crop&crop=face",
+                ].map((src, i) => (
+                  <img key={i} src={src} alt="Customer" className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" />
                 ))}
               </div>
               <p className="text-sm text-[#475569]">
@@ -90,7 +72,7 @@ export const InsuranceProductPage = ({ data }) => {
                   <p className="text-sm text-[#64748B] text-center">Our insurance expert will reach out to you shortly.</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={(e) => handleSubmit(e, { insuranceProduct: data.id, requireProduct: false })} className="space-y-5">
                   <div className="space-y-2">
                     <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Full Name</Label>
                     <Input
@@ -109,7 +91,7 @@ export const InsuranceProductPage = ({ data }) => {
                         type="tel"
                         placeholder="Enter 10-digit mobile number"
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                        onChange={(e) => handlePhoneChange(e.target.value)}
                         className="bg-[#F8FAFC] border-transparent focus:bg-white focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 pl-11 pr-4"
                       />
                     </div>
@@ -206,13 +188,22 @@ export const InsuranceProductPage = ({ data }) => {
               Need Help Deciding?
             </h3>
             <p className="text-[#64748B] text-sm mb-6">Our experts are available 24x7 to guide you through the process.</p>
-            <Button className="w-full bg-[#1A1A4E] hover:bg-[#1A1A4E]/90 text-white rounded-full">
+            <Button
+              className="w-full bg-[#1A1A4E] hover:bg-[#1A1A4E]/90 text-white rounded-full"
+              onClick={() => toast.info("Request a Callback is coming soon! Stay tuned.")}
+            >
               Request a Callback
             </Button>
           </section>
 
         </div>
       </div>
+
+      {/* Compare Health Plans Section (Health Insurance page only) */}
+      {data.id === "health" && <CompareHealthPlans />}
+
+      {/* Consultation Section */}
+      <ConsultationSection />
 
       {/* FAQ Section */}
       <section className="max-w-4xl mx-auto px-6 md:px-12 mt-24">

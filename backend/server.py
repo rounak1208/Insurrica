@@ -6,8 +6,10 @@ import logging
 import httpx
 import asyncio
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 from typing import List, Optional
+import re
+
 import uuid
 from datetime import datetime, timezone
 
@@ -47,6 +49,49 @@ class LeadCreate(BaseModel):
     phone: str
     insurance_product: str
     message: Optional[str] = None
+
+    @field_validator('phone')
+    @classmethod
+    def validate_phone(cls, v: str) -> str:
+        # 1. Clean number (remove spaces, +91, 91 prefix)
+        cleaned = re.sub(r'\D', '', v)
+        if cleaned.startswith('91') and len(cleaned) == 12:
+            cleaned = cleaned[2:]
+        
+        # 2. Basic Format check: Starts with 6-9, exactly 10 digits
+        if not re.match(r'^[6-9]\d{9}$', cleaned):
+            raise ValueError('Invalid Indian mobile number format. Must be 10 digits starting with 6-9.')
+        
+        # 3. Reject if too few unique digits
+        if len(set(cleaned)) < 4:
+            raise ValueError('Phone number contains too many repeating digits.')
+            
+        # 4. Reject more than 4 identical consecutive digits (e.g., 99999...)
+        if re.search(r'(\d)\1{4}', cleaned):
+            raise ValueError('Too many consecutive identical digits.')
+            
+        # 5. Advanced Pattern Checks
+        patterns = [
+            r'^(\d)\1(\d)\2(\d)\3(\d)\4(\d)\5$', # Pairs: 9988776655
+            r'^(\d\d)\1{4}$',                   # Alternating: 9898989898
+            r'^(\d{3})\1{2}\d$',                # Triplets: 9879879879
+            r'^(\d)\1\1(\d)\2\2(\d)\3\3\d$',    # Blocks of triplets: 9998887776
+        ]
+        if any(re.match(p, cleaned) for p in patterns):
+            raise ValueError('Repetitive patterns are not allowed.')
+
+        # 6. Common Fake/Keyboard sequences
+        common_fake = [
+            "1234567890", "0123456789", "9876543210", "0987654321",
+            "7894561230", "1231231231", "1472583690", "1212121212"
+        ]
+        if any(seq in cleaned for seq in common_fake):
+            raise ValueError('This number is recognized as a fake pattern.')
+            
+        return cleaned
+
+
+
 
 
 async def push_to_google_sheets(lead_data: dict):

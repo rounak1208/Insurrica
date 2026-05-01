@@ -3,10 +3,8 @@ import { Phone as PhoneIcon, MessageCircle, FileText, X, ArrowRight, CheckCircle
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
-import axios from "axios";
+import { useLeadForm } from "../hooks/useLeadForm";
 
-const API = (process.env.REACT_APP_BACKEND_URL && process.env.REACT_APP_BACKEND_URL !== "undefined") ? `${process.env.REACT_APP_BACKEND_URL}/api` : "/api";
 const PHONE_NUMBER = "919727692000";
 
 const INSURANCE_PRODUCTS = [
@@ -20,24 +18,13 @@ const INSURANCE_PRODUCTS = [
 ];
 
 const MobileFormPopup = ({ onClose }) => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [product, setProduct] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name || !phone || !product) { toast.error("Please fill in all fields"); return; }
-    if (phone.length < 10) { toast.error("Please enter a valid phone number"); return; }
-    setLoading(true);
-    try {
-      await axios.post(`${API}/leads`, { name, phone, insurance_product: product });
-      setSubmitted(true);
-      toast.success("We'll call you back shortly!");
-    } catch { toast.error("Something went wrong. Please try again."); }
-    finally { setLoading(false); }
-  };
+  const {
+    name, setName,
+    phone, handlePhoneChange,
+    product, setProduct,
+    loading, submitted,
+    handleSubmit,
+  } = useLeadForm();
 
   return (
     <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center px-0 sm:px-4" data-testid="mobile-form-overlay">
@@ -63,14 +50,14 @@ const MobileFormPopup = ({ onClose }) => {
             <Button onClick={onClose} className="bg-[#0088CC] hover:bg-[#0088CC]/90 text-white rounded-full px-8 mt-2">Close</Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={(e) => handleSubmit(e)} className="space-y-4">
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Full Name</Label>
               <Input data-testid="mobile-form-name" placeholder="Your full name" value={name} onChange={(e) => setName(e.target.value)} className="bg-white border-gray-200 rounded-xl h-11 px-4" />
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Phone Number</Label>
-              <Input data-testid="mobile-form-phone" type="tel" placeholder="10-digit mobile number" value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))} className="bg-white border-gray-200 rounded-xl h-11 px-4" />
+              <Input data-testid="mobile-form-phone" type="tel" placeholder="10-digit mobile number" value={phone} onChange={(e) => handlePhoneChange(e.target.value)} className="bg-white border-gray-200 rounded-xl h-11 px-4" />
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Insurance Type</Label>
@@ -130,7 +117,7 @@ export const FloatingWidgets = () => {
         </a>
       </div>
 
-      {/* Mobile sticky CTA bar - positioned above Emergent badge */}
+      {/* Mobile sticky CTA bar */}
       <div data-testid="mobile-cta-bar" className="fixed bottom-0 left-0 right-0 z-[9998] md:hidden">
         <div className="bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
           <div className="grid grid-cols-3 h-14">
