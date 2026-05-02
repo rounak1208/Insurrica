@@ -94,7 +94,7 @@ export const FloatingWidgets = () => {
   return (
     <>
       {/* Desktop floating widgets */}
-      <div data-testid="floating-widgets" className="fixed bottom-6 right-6 z-40 hidden md:flex flex-col gap-3">
+      <div data-testid="floating-widgets" role="navigation" aria-label="Quick contact options" className="fixed bottom-6 right-6 z-40 hidden md:flex flex-col gap-3">
         <a
           href={`https://wa.me/${PHONE_NUMBER}?text=Hi%20Insurrica%2C%20I%27d%20like%20to%20know%20more%20about%20insurance%20plans.`}
           target="_blank"
@@ -118,12 +118,13 @@ export const FloatingWidgets = () => {
       </div>
 
       {/* Mobile sticky CTA bar */}
-      <div data-testid="mobile-cta-bar" className="fixed bottom-0 left-0 right-0 z-[9998] md:hidden">
+      <div data-testid="mobile-cta-bar" role="navigation" aria-label="Quick actions" className="fixed bottom-0 left-0 right-0 z-[9998] md:hidden">
         <div className="bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
           <div className="grid grid-cols-3 h-14">
             <button
               data-testid="mobile-cta-form"
               onClick={() => setShowForm(true)}
+              aria-label="Get a free insurance quote"
               className="flex flex-col items-center justify-center gap-0.5 text-[#0088CC] active:bg-[#0088CC]/5"
             >
               <FileText className="w-5 h-5" />

@@ -157,8 +157,8 @@ export const Navbar = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${scrolled || location.pathname !== '/' ? "bg-white/20 backdrop-blur-3xl border-b border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.08)]" : "bg-transparent"
           }`}
       >
-        <button onClick={() => navigate("/")} data-testid="navbar-logo" className="absolute left-4 md:left-8 top-0 h-20 flex items-center z-10 transition-transform hover:scale-105">
-          <img src={LOGO_URL} alt="Insurrica Logo" className="h-16 md:h-20 w-auto object-contain" style={{ borderRadius: 0, mixBlendMode: "multiply" }} />
+        <button onClick={() => navigate("/")} data-testid="navbar-logo" aria-label="Go to homepage" className="absolute left-4 md:left-8 top-0 h-20 flex items-center z-10 transition-transform hover:scale-105">
+          <img src={LOGO_URL} alt="Insurrica Logo" width="80" height="80" fetchpriority="high" className="h-16 md:h-20 w-auto object-contain" style={{ borderRadius: 0, mixBlendMode: "multiply" }} />
         </button>
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-end h-20">
           <div className="hidden md:flex items-center gap-8">
@@ -171,7 +171,7 @@ export const Navbar = () => {
               Get Free Quote
             </Button>
           </div>
-          <button data-testid="mobile-menu-toggle" className="md:hidden text-[#1A1A4E]" onClick={() => setMobileOpen(!mobileOpen)}>
+          <button data-testid="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded={mobileOpen} className="md:hidden text-[#1A1A4E]" onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>

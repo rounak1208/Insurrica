@@ -5,68 +5,82 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0088CC" />
         <meta name="description" content="Insurrica - Compare smarter. Insure better. Instant quotes from India's top insurers. Zero paperwork. 100% claims assistance." />
+
+        <!-- SEO: Canonical URL -->
+        <link rel="canonical" href="https://insurrica.com/" />
+
+        <!-- Open Graph -->
         <meta property="og:title" content="Insurrica - Compare Smarter. Insure Better." />
         <meta property="og:description" content="Instant quotes from 50+ insurers. Zero paperwork. Best price guarantee." />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://insurrica.com/" />
+        <meta property="og:image" content="https://insurrica.com/logo.jpeg" />
+        <meta property="og:site_name" content="Insurrica" />
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Insurrica - Compare Smarter. Insure Better." />
+        <meta name="twitter:description" content="Instant quotes from 50+ insurers. Zero paperwork. Best price guarantee." />
+        <meta name="twitter:image" content="https://insurrica.com/logo.jpeg" />
+
         <meta name="robots" content="index, follow" />
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/jpeg" href="%PUBLIC_URL%/logo.jpeg" />
+
+        <!-- Preconnect to critical third-party origins -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://us-assets.i.posthog.com" crossorigin />
         <link rel="dns-prefetch" href="https://logo.clearbit.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-        <!--
-        manifest.json provides metadata used when your web app is installed on a
-        user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-        -->
-        <!--
-        Notice the use of %PUBLIC_URL% in the tags above.
-        It will be replaced with the URL of the `public` folder during the build.
-        Only files inside the `public` folder can be referenced from the HTML.
 
-        Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-        work correctly both with client-side routing and a non-root public URL.
-        Learn how to configure a non-root public URL by running `npm run build`.
-        -->
+        <!-- Preload LCP image (logo) -->
+        <link rel="preload" as="image" href="%PUBLIC_URL%/logo.jpeg" />
+
+        <!-- Google Fonts — non-render-blocking -->
+        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+        <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
+
         <title>Insurrica | Compare Smarter. Insure Better.</title>
+
+        <!-- Structured Data (JSON-LD) -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Insurrica",
+            "url": "https://insurrica.com",
+            "logo": "https://insurrica.com/logo.jpeg",
+            "description": "Compare smarter. Insure better. Instant quotes from India's top insurers.",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-97276-92000",
+                "contactType": "customer service",
+                "areaServed": "IN",
+                "availableLanguage": ["English", "Hindi"]
+            },
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Bengaluru",
+                "addressRegion": "Karnataka",
+                "addressCountry": "IN"
+            }
+        }
+        </script>
+
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
 
-        <!-- Google Analytics (GA4) - Replace GA_MEASUREMENT_ID with your actual ID -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-XXXXXXXXXX');
-        </script>
+        <!-- Google Analytics: Add your real GA4 ID here when ready -->
+        <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_REAL_ID"></script> -->
 
-        <!-- Meta Pixel - Replace PIXEL_ID with your actual ID -->
-        <script>
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', 'XXXXXXXXXXXXXXXX');
-          fbq('track', 'PageView');
-        </script>
-        <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXXX&ev=PageView&noscript=1"/></noscript>
+        <!-- Meta Pixel: Add your real Pixel ID here when ready -->
+        <!-- <script>fbq('init', 'YOUR_REAL_PIXEL_ID');</script> -->
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
-        <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
 
         <script>
             !(function (t, e) {

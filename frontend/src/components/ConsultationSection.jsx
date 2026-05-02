@@ -24,7 +24,7 @@ const aiOptions = [
     id: "video-ai",
     icon: Video,
     title: "Video Call with AI",
-    description: "Get a personalized video call walkthrough of plans our plans with our AI-powered advisor.",
+    description: "Get a personalized video call assisted walkthrough of plans with our AI-powered advisor.",
     iconBg: "bg-[#F5F3FF]",
     iconColor: "text-[#8B5CF6]",
   },
@@ -99,7 +99,7 @@ export const ConsultationSection = () => {
             <div
               className="overflow-hidden"
               style={{
-                maxHeight: aiExpanded ? "400px" : "0",
+                maxHeight: aiExpanded ? "600px" : "0",
                 transitionProperty: "max-height",
                 transitionDuration: "400ms",
                 transitionTimingFunction: "ease-in-out",

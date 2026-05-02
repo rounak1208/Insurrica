@@ -38,6 +38,8 @@ const PartnerLogo = ({ partner }) => {
           <img
             src={primarySrc}
             alt={`${partner.name} logo`}
+            width="56"
+            height="56"
             loading="lazy"
             className="max-w-[48px] max-h-[48px] sm:max-w-[56px] sm:max-h-[56px] object-contain opacity-80 group-hover:opacity-100"
             style={{ transitionProperty: "opacity", transitionDuration: "300ms" }}
@@ -47,6 +49,8 @@ const PartnerLogo = ({ partner }) => {
           <img
             src={secondarySrc}
             alt={`${partner.name} logo`}
+            width="48"
+            height="48"
             loading="lazy"
             className="w-10 h-10 sm:w-12 sm:h-12 object-contain opacity-80 group-hover:opacity-100"
             style={{ transitionProperty: "opacity", transitionDuration: "300ms" }}

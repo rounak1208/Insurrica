@@ -54,7 +54,4 @@ html {
   font-variant-numeric: tabular-nums;
 }
 
-/* Reduce layout shift for images */
-img {
-  content-visibility: auto;
-}
+

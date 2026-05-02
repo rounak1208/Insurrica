@@ -1,16 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FloatingWidgets } from "@/components/FloatingWidgets";
 import { Home } from "@/pages/Home";
-import { InsuranceProductPage } from "@/pages/InsuranceProductPage";
 import { productData } from "@/lib/productData";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { PlanDetailPage } from "@/pages/PlanDetailPage";
+
+const InsuranceProductPage = lazy(() => import("@/pages/InsuranceProductPage").then(m => ({ default: m.InsuranceProductPage })));
+const PlanDetailPage = lazy(() => import("@/pages/PlanDetailPage").then(m => ({ default: m.PlanDetailPage })));
 
 function App() {
   return (

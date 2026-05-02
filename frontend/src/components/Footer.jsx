@@ -14,7 +14,7 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="md:col-span-1 space-y-4">
-            <img src={LOGO_URL} alt="Insurrica" className="h-14 w-auto rounded-lg" />
+            <img src={LOGO_URL} alt="Insurrica" width="56" height="56" loading="lazy" className="h-14 w-auto rounded-lg" />
             <p className="text-sm text-white/60 leading-relaxed">
               Your trusted insurance broking partner. Compare, choose, and insure — all in one place.
             </p>
