@@ -3,12 +3,13 @@ import { Suspense, lazy } from "react";
 import "@/App.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { FloatingWidgets } from "@/components/FloatingWidgets";
 import { Home } from "@/pages/Home";
 import { productData } from "@/lib/productData";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+
+const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 
 const InsuranceProductPage = lazy(() => import("@/pages/InsuranceProductPage").then(m => ({ default: m.InsuranceProductPage })));
 const PlanDetailPage = lazy(() => import("@/pages/PlanDetailPage").then(m => ({ default: m.PlanDetailPage })));
@@ -35,7 +36,9 @@ function App() {
               </Routes>
             </Suspense>
           </main>
-          <Footer />
+          <Suspense fallback={null}>
+            <Footer />
+          </Suspense>
           <FloatingWidgets />
         </div>
       </BrowserRouter>

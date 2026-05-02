@@ -1,13 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { ShieldCheck, ArrowRight, CheckCircle, Phone } from "lucide-react";
 import { useLeadForm } from "../hooks/useLeadForm";
 
@@ -146,22 +139,23 @@ export const HeroSection = () => {
                     <Label htmlFor="product" className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">
                       Insurance Type
                     </Label>
-                    <Select value={product} onValueChange={setProduct}>
-                      <SelectTrigger
-                        data-testid="lead-form-product"
+                    <div className="relative" data-testid="lead-form-product">
+                      <select
+                        id="product"
+                        value={product}
+                        onChange={(e) => setProduct(e.target.value)}
                         aria-label="Select insurance type"
-                        className="bg-white border-gray-200 focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 px-4"
+                        className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-sm text-[#1A1A4E] appearance-none cursor-pointer focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 focus:outline-none"
                       >
-                        <SelectValue placeholder="Select insurance type" />
-                      </SelectTrigger>
-                      <SelectContent>
+                        <option value="" disabled>Select insurance type</option>
                         {INSURANCE_PRODUCTS.map((p) => (
-                          <SelectItem key={p.value} value={p.value} data-testid={`product-option-${p.value}`}>
-                            {p.label}
-                          </SelectItem>
+                          <option key={p.value} value={p.value}>{p.label}</option>
                         ))}
-                      </SelectContent>
-                    </Select>
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="#94A3B8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                      </div>
+                    </div>
                   </div>
 
                   <Button
