@@ -33,7 +33,7 @@ export const WhyChooseUs = () => {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 max-w-2xl mx-auto">
-          <p className="text-sm font-semibold text-[#0088CC] uppercase tracking-wider mb-3">
+          <p className="text-sm font-semibold text-[#0369A1] uppercase tracking-wider mb-3">
             Why Insurrica
           </p>
           <h2

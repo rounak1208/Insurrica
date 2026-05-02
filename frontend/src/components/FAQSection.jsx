@@ -37,7 +37,7 @@ export const FAQSection = () => {
     <section data-testid="faq-section" className="px-6 md:px-12 lg:px-24 py-20 md:py-32 bg-[#F8FAFC]">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-sm font-semibold text-[#0088CC] uppercase tracking-wider mb-3">
+          <p className="text-sm font-semibold text-[#0369A1] uppercase tracking-wider mb-3">
             FAQ
           </p>
           <h2

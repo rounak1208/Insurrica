@@ -40,7 +40,7 @@ export const TestimonialsSection = () => {
     <section data-testid="testimonials-section" className="px-6 md:px-12 lg:px-24 py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="mb-16 max-w-2xl">
-          <p className="text-sm font-semibold text-[#0088CC] uppercase tracking-wider mb-3">
+          <p className="text-sm font-semibold text-[#0369A1] uppercase tracking-wider mb-3">
             Testimonials
           </p>
           <h2
@@ -81,7 +81,7 @@ export const TestimonialsSection = () => {
                 />
                 <div>
                   <p className="text-sm font-semibold text-[#1A1A4E]">{t.name}, {t.age}</p>
-                  <p className="text-xs text-[#94A3B8]">{t.role}</p>
+                  <p className="text-xs text-[#64748B]">{t.role}</p>
                 </div>
               </div>
             </div>

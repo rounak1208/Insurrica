@@ -38,7 +38,7 @@ export const ConsultationSection = () => {
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-sm font-semibold text-[#0088CC] uppercase tracking-wider mb-3">
+          <p className="text-sm font-semibold text-[#0369A1] uppercase tracking-wider mb-3">
             Need Help Deciding?
           </p>
           <h2
@@ -83,9 +83,9 @@ export const ConsultationSection = () => {
                       Get instant help with your insurance queries via chat, voice, or video - powered by AI.
                     </p>
                     <div className="flex items-center gap-2 mt-3">
-                      <span className="px-2.5 py-1 bg-[#F0F9FF] rounded-lg text-xs font-semibold text-[#0088CC]">Chat</span>
-                      <span className="px-2.5 py-1 bg-[#F5F3FF] rounded-lg text-xs font-semibold text-[#8B5CF6]">Voice</span>
-                      <span className="px-2.5 py-1 bg-[#ECFDF5] rounded-lg text-xs font-semibold text-[#10B981]">Video</span>
+                      <span className="px-2.5 py-1 bg-[#F0F9FF] rounded-lg text-xs font-semibold text-[#0369A1]">Chat</span>
+                      <span className="px-2.5 py-1 bg-[#F5F3FF] rounded-lg text-xs font-semibold text-[#7C3AED]">Voice</span>
+                      <span className="px-2.5 py-1 bg-[#ECFDF5] rounded-lg text-xs font-semibold text-[#059669]">Video</span>
                     </div>
                   </div>
                 </div>
@@ -147,8 +147,8 @@ export const ConsultationSection = () => {
                   Book a face-to-face meeting with a certified insurance expert near you. Get personalized guidance and compare plans in person.
                 </p>
                 <div className="flex items-center gap-2 mt-3">
-                  <span className="px-2.5 py-1 bg-[#FFF7ED] rounded-lg text-xs font-semibold text-[#FF9F1C]">In-person</span>
-                  <span className="px-2.5 py-1 bg-[#FFF7ED] rounded-lg text-xs font-semibold text-[#FF9F1C]">Expert</span>
+                  <span className="px-2.5 py-1 bg-[#FFF7ED] rounded-lg text-xs font-semibold text-[#B45309]">In-person</span>
+                  <span className="px-2.5 py-1 bg-[#FFF7ED] rounded-lg text-xs font-semibold text-[#B45309]">Expert</span>
                 </div>
               </div>
             </div>
@@ -160,7 +160,7 @@ export const ConsultationSection = () => {
               Book Meeting
               <ChevronRight className="w-4 h-4 ml-1" />
             </Button>
-            <p className="text-xs text-[#94A3B8] italic text-center mt-3">Coming Soon</p>
+            <p className="text-xs text-[#64748B] italic text-center mt-3">Coming Soon</p>
           </div>
 
         </div>

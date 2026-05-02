@@ -167,7 +167,7 @@ export const Navbar = () => {
                 {link.label}
               </button>
             ))}
-            <Button data-testid="navbar-cta" onClick={() => setShowPopup(true)} className="bg-[#0088CC] hover:bg-[#0088CC]/90 text-white rounded-full px-6 h-9 text-sm font-semibold shadow-md">
+            <Button data-testid="navbar-cta" onClick={() => setShowPopup(true)} className="bg-[#0077AA] hover:bg-[#006999] text-white rounded-full px-6 h-9 text-sm font-semibold shadow-md">
               Get Free Quote
             </Button>
           </div>

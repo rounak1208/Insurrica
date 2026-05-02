@@ -100,7 +100,7 @@ export const FloatingWidgets = () => {
           target="_blank"
           rel="noopener noreferrer"
           data-testid="whatsapp-widget"
-          className="flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full pl-4 pr-5 h-12 shadow-lg hover:shadow-xl"
+          className="flex items-center gap-2 bg-[#1A7F37] hover:bg-[#166B2E] text-white rounded-full pl-4 pr-5 h-12 shadow-lg hover:shadow-xl"
           style={{ transitionProperty: "background-color, box-shadow", transitionDuration: "300ms" }}
         >
           <MessageCircle className="w-5 h-5" />
@@ -109,7 +109,7 @@ export const FloatingWidgets = () => {
         <a
           href="tel:+919727692000"
           data-testid="call-widget"
-          className="flex items-center gap-2 bg-[#0088CC] hover:bg-[#006fa8] text-white rounded-full pl-4 pr-5 h-12 shadow-lg hover:shadow-xl"
+          className="flex items-center gap-2 bg-[#0077AA] hover:bg-[#006999] text-white rounded-full pl-4 pr-5 h-12 shadow-lg hover:shadow-xl"
           style={{ transitionProperty: "background-color, box-shadow", transitionDuration: "300ms" }}
         >
           <PhoneIcon className="w-5 h-5" />
@@ -135,7 +135,7 @@ export const FloatingWidgets = () => {
               target="_blank"
               rel="noopener noreferrer"
               data-testid="mobile-cta-whatsapp"
-              className="flex flex-col items-center justify-center gap-0.5 text-[#25D366] active:bg-[#25D366]/5 border-x border-gray-100"
+              className="flex flex-col items-center justify-center gap-0.5 text-[#1A7F37] active:bg-[#1A7F37]/5 border-x border-gray-100"
             >
               <MessageCircle className="w-5 h-5" />
               <span className="text-[10px] font-bold uppercase tracking-wider">WhatsApp</span>

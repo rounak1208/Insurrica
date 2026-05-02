@@ -87,12 +87,12 @@ export const HeroSection = () => {
               className="backdrop-blur-xl bg-white/90 border border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.08)] rounded-2xl p-8 space-y-6"
             >
               <div className="space-y-2">
-                <h3
+                <h2
                   className="text-xl font-bold text-[#1A1A4E]"
                   style={{ fontFamily: "Outfit, sans-serif" }}
                 >
                   Get Free Quotes
-                </h3>
+                </h2>
                 <p className="text-sm text-[#64748B]">
                   Fill in your details and our expert will call you back
                 </p>
@@ -149,6 +149,7 @@ export const HeroSection = () => {
                     <Select value={product} onValueChange={setProduct}>
                       <SelectTrigger
                         data-testid="lead-form-product"
+                        aria-label="Select insurance type"
                         className="bg-white border-gray-200 focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 px-4"
                       >
                         <SelectValue placeholder="Select insurance type" />

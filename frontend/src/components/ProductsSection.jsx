@@ -67,7 +67,7 @@ export const ProductsSection = () => {
     <section data-testid="products-section" className="px-6 md:px-12 lg:px-24 py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="mb-16 max-w-2xl">
-          <p className="text-sm font-semibold text-[#0088CC] uppercase tracking-wider mb-3">
+          <p className="text-sm font-semibold text-[#0369A1] uppercase tracking-wider mb-3">
             Our Products
           </p>
           <h2

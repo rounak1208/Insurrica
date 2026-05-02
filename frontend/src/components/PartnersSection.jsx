@@ -77,7 +77,7 @@ export const PartnersSection = () => {
     <section data-testid="partners-section" className="px-6 md:px-12 lg:px-24 py-16 md:py-24 bg-[#F8FAFC]">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-sm font-semibold text-[#0088CC] uppercase tracking-wider mb-3">
+          <p className="text-sm font-semibold text-[#0369A1] uppercase tracking-wider mb-3">
             Our Partners
           </p>
           <h2

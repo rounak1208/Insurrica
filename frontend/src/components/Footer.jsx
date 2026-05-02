@@ -15,7 +15,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-1 space-y-4">
             <img src={LOGO_URL} alt="Insurrica" width="56" height="56" loading="lazy" className="h-14 w-auto rounded-lg" />
-            <p className="text-sm text-white/60 leading-relaxed">
+            <p className="text-sm text-white/70 leading-relaxed">
               Your trusted insurance broking partner. Compare, choose, and insure — all in one place.
             </p>
           </div>
@@ -92,13 +92,13 @@ export const Footer = () => {
         </div>
 
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-white/40">
+          <p className="text-xs text-white/60">
             &copy; {new Date().getFullYear()} Insurrica. All rights reserved.
           </p>
-          <div className="flex gap-6 text-xs text-white/40">
-            <span className="hover:text-white/60 cursor-pointer transition-colors duration-200">Privacy Policy</span>
-            <span className="hover:text-white/60 cursor-pointer transition-colors duration-200">Terms of Service</span>
-            <span className="hover:text-white/60 cursor-pointer transition-colors duration-200">Disclaimer</span>
+          <div className="flex gap-6 text-xs text-white/60">
+            <button onClick={() => {}} className="hover:text-white/80 transition-colors duration-200">Privacy Policy</button>
+            <button onClick={() => {}} className="hover:text-white/80 transition-colors duration-200">Terms of Service</button>
+            <button onClick={() => {}} className="hover:text-white/80 transition-colors duration-200">Disclaimer</button>
           </div>
         </div>
       </div>
