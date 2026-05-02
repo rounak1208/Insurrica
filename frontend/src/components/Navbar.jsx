@@ -6,7 +6,7 @@ import { Menu, X, Phone, ArrowRight, CheckCircle } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useLeadForm } from "../hooks/useLeadForm";
 
-const LOGO_URL = "/logo.jpeg";
+const LOGO_URL = "/logo.webp";
 
 const INSURANCE_PRODUCTS = [
   { value: "health", label: "Health Insurance" },

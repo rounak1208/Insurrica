@@ -42,10 +42,10 @@ export const InsuranceProductPage = ({ data }) => {
             <div className="flex items-center gap-4 pt-4">
               <div className="flex -space-x-3">
                 {[
-                  "https://images.unsplash.com/photo-1771240730126-594a8ab66be1?w=150&h=150&fit=crop&crop=face",
-                  "https://images.unsplash.com/photo-1752738372136-2602aaafdcb7?w=150&h=150&fit=crop&crop=face",
-                  "https://images.unsplash.com/photo-1528082414335-adbd64f18d12?w=150&h=150&fit=crop&crop=face",
-                  "https://images.unsplash.com/photo-1699860777054-13e8d1d6245a?w=150&h=150&fit=crop&crop=face",
+                  "https://images.unsplash.com/photo-1771240730126-594a8ab66be1?w=80&h=80&fit=crop&crop=face",
+                  "https://images.unsplash.com/photo-1752738372136-2602aaafdcb7?w=80&h=80&fit=crop&crop=face",
+                  "https://images.unsplash.com/photo-1528082414335-adbd64f18d12?w=80&h=80&fit=crop&crop=face",
+                  "https://images.unsplash.com/photo-1699860777054-13e8d1d6245a?w=80&h=80&fit=crop&crop=face",
                 ].map((src, i) => (
                   <img key={i} src={src} alt="Customer" width="40" height="40" loading="lazy" className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" />
                 ))}

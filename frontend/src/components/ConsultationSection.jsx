@@ -85,7 +85,7 @@ export const ConsultationSection = () => {
                     <div className="flex items-center gap-2 mt-3">
                       <span className="px-2.5 py-1 bg-[#F0F9FF] rounded-lg text-xs font-semibold text-[#0369A1]">Chat</span>
                       <span className="px-2.5 py-1 bg-[#F5F3FF] rounded-lg text-xs font-semibold text-[#7C3AED]">Voice</span>
-                      <span className="px-2.5 py-1 bg-[#ECFDF5] rounded-lg text-xs font-semibold text-[#059669]">Video</span>
+                      <span className="px-2.5 py-1 bg-[#ECFDF5] rounded-lg text-xs font-semibold text-[#047857]">Video</span>
                     </div>
                   </div>
                 </div>

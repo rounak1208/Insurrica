@@ -1,6 +1,6 @@
 import { Phone, Mail, MapPin } from "lucide-react";
 
-const LOGO_URL = "/logo.jpeg";
+const LOGO_URL = "/logo.webp";
 
 export const Footer = () => {
   const scrollTo = (href) => {

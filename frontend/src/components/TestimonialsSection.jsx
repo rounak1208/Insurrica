@@ -7,7 +7,7 @@ const testimonials = [
     role: "Software Engineer, Bangalore",
     text: "My father was hospitalised for a major surgery and the bill came to over \u20B910 Lakhs. Insurrica's team got the entire claim cashless-approved within hours. They coordinated everything with the hospital and insurer \u2014 we didn't have to pay a single rupee out of pocket. Truly life-saving support!",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1771240730126-594a8ab66be1?w=150&h=150&fit=crop&crop=face",
+    avatar: "https://images.unsplash.com/photo-1771240730126-594a8ab66be1?w=88&h=88&fit=crop&crop=face",
   },
   {
     name: "Rajesh Patel",
@@ -15,7 +15,7 @@ const testimonials = [
     role: "Business Owner, Mumbai",
     text: "Switched my motor insurance through Insurrica. Got the same coverage for 30% less. Their claims support team is responsive and professional.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1752738372136-2602aaafdcb7?w=150&h=150&fit=crop&crop=face",
+    avatar: "https://images.unsplash.com/photo-1752738372136-2602aaafdcb7?w=88&h=88&fit=crop&crop=face",
   },
   {
     name: "Anita Desai",
@@ -23,7 +23,7 @@ const testimonials = [
     role: "Teacher, Delhi",
     text: "After my husband passed, Insurrica's team handled the entire term insurance claim. They were empathetic and efficient during the hardest time of my life.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1528082414335-adbd64f18d12?w=150&h=150&fit=crop&crop=face",
+    avatar: "https://images.unsplash.com/photo-1528082414335-adbd64f18d12?w=88&h=88&fit=crop&crop=face",
   },
   {
     name: "Vikram Singh",
@@ -31,7 +31,7 @@ const testimonials = [
     role: "Freelancer, Jaipur",
     text: "As a freelancer, finding the right health plan was confusing. Insurrica's expert walked me through every option and helped me pick the perfect plan.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1699860777054-13e8d1d6245a?w=150&h=150&fit=crop&crop=face",
+    avatar: "https://images.unsplash.com/photo-1699860777054-13e8d1d6245a?w=88&h=88&fit=crop&crop=face",
   },
 ];
 
