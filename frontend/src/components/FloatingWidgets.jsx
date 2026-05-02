@@ -125,7 +125,7 @@ export const FloatingWidgets = () => {
               data-testid="mobile-cta-form"
               onClick={() => setShowForm(true)}
               aria-label="Get a free insurance quote"
-              className="flex flex-col items-center justify-center gap-0.5 text-[#0088CC] active:bg-[#0088CC]/5"
+              className="flex flex-col items-center justify-center gap-0.5 text-[#0369A1] active:bg-[#0369A1]/5"
             >
               <FileText className="w-5 h-5" />
               <span className="text-[10px] font-bold uppercase tracking-wider">Get Quote</span>
@@ -143,7 +143,7 @@ export const FloatingWidgets = () => {
             <a
               href="tel:+919727692000"
               data-testid="mobile-cta-call"
-              className="flex flex-col items-center justify-center gap-0.5 text-[#FF9F1C] active:bg-[#FF9F1C]/5"
+              className="flex flex-col items-center justify-center gap-0.5 text-[#B45309] active:bg-[#B45309]/5"
             >
               <PhoneIcon className="w-5 h-5" />
               <span className="text-[10px] font-bold uppercase tracking-wider">Call Now</span>
