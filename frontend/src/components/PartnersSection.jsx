@@ -24,8 +24,8 @@ const PartnerLogo = ({ partner }) => {
   const [secondaryFailed, setSecondaryFailed] = useState(false);
   const initials = partner.name.split(" ").map(w => w[0]).join("").slice(0, 3);
 
-  const primarySrc = `https://logo.clearbit.com/${partner.domain}?size=128`;
-  const secondarySrc = `https://www.google.com/s2/favicons?domain=${partner.domain}&sz=128`;
+  const primarySrc = `https://logo.clearbit.com/${partner.domain}?size=64`;
+  const secondarySrc = `https://www.google.com/s2/favicons?domain=${partner.domain}&sz=64`;
 
   return (
     <div
