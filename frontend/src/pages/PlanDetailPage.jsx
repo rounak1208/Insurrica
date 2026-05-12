@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowRight, ArrowLeft, CheckCircle, Phone, Clock, Shield, AlertTriangle,
@@ -8,8 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useLeadForm } from "../hooks/useLeadForm";
-import { healthInsurancePlans, insurerProfiles } from "../lib/starHealthPlans";
+import { healthInsurancePlans, insurerProfiles } from "../lib/plans";
 import { ConsultationSection } from "../components/ConsultationSection";
+import { ScrollReveal } from "../components/ScrollReveal";
 
 export const PlanDetailPage = () => {
   const { planId } = useParams();
@@ -23,7 +24,7 @@ export const PlanDetailPage = () => {
     handleSubmit,
   } = useLeadForm({ defaultProduct: "health" });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [planId]);
 
@@ -44,9 +45,9 @@ export const PlanDetailPage = () => {
   const insurer = insurerProfiles[plan.insurerId];
 
   return (
-    <div className="bg-[#F8FAFC] pb-24">
-      {/* Hero Section */}
-      <section className="relative pt-28 pb-20 px-6 md:px-12 lg:px-24 bg-white border-b border-gray-100 overflow-hidden">
+    <div key={planId} className="bg-[#F8FAFC] pb-24">
+      {/* Hero Section - Immediate Animation */}
+      <section className="relative pt-28 pb-20 px-6 md:px-12 lg:px-24 bg-white border-b border-gray-100 overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both">
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none" style={{ backgroundImage: `radial-gradient(circle at top right, ${plan.color}, transparent 60%)` }} />
 
         <div className="max-w-7xl mx-auto relative z-10">
@@ -62,7 +63,7 @@ export const PlanDetailPage = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Plan Info */}
-            <div className="space-y-6">
+            <div className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-1000 delay-200 fill-mode-both">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: plan.bgColor }}>
                   <Star className="w-5 h-5" style={{ color: plan.color }} />
@@ -103,7 +104,7 @@ export const PlanDetailPage = () => {
             </div>
 
             {/* Lead Form */}
-            <div className="lg:justify-self-end w-full max-w-md">
+            <div className="lg:justify-self-end w-full max-w-md animate-in fade-in slide-in-from-right-8 duration-1000 delay-300 fill-mode-both">
               <div className="bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-gray-100 p-8 space-y-6">
                 <div>
                   <h3 className="text-xl font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>Get a Free Quote</h3>
@@ -122,16 +123,16 @@ export const PlanDetailPage = () => {
                   <form onSubmit={(e) => handleSubmit(e, { insuranceProduct: `health-${plan.id}`, requireProduct: false })} className="space-y-5">
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Full Name</Label>
-                      <Input placeholder="Enter your full name" value={name} onChange={(e) => setName(e.target.value)} className="bg-[#F8FAFC] border-transparent focus:bg-white focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 px-4" />
+                      <Input placeholder="Enter your full name" value={name} onChange={(e) => setName(e.target.value)} className="bg-[#F8FAFC] border-transparent focus:bg-white focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 px-4 transition-all" />
                     </div>
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Phone Number</Label>
                       <div className="relative">
                         <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8]" />
-                        <Input type="tel" placeholder="10-digit mobile number" value={phone} onChange={(e) => handlePhoneChange(e.target.value)} className="bg-[#F8FAFC] border-transparent focus:bg-white focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 pl-11 pr-4" />
+                        <Input type="tel" placeholder="10-digit mobile number" value={phone} onChange={(e) => handlePhoneChange(e.target.value)} className="bg-[#F8FAFC] border-transparent focus:bg-white focus:border-[#0088CC] focus:ring-4 focus:ring-[#0088CC]/10 rounded-xl h-12 pl-11 pr-4 transition-all" />
                       </div>
                     </div>
-                    <Button type="submit" disabled={loading} className="w-full bg-[#FF9F1C] hover:bg-[#FF9F1C]/90 text-[#1A1A4E] font-bold rounded-full h-12 shadow-[0_0_20px_rgba(255,159,28,0.3)] hover:shadow-[0_0_30px_rgba(255,159,28,0.5)]" style={{ transitionProperty: "box-shadow", transitionDuration: "300ms" }}>
+                    <Button type="submit" disabled={loading} className="w-full bg-[#FF9F1C] hover:bg-[#FF9F1C]/90 text-[#1A1A4E] font-bold rounded-full h-12 shadow-[0_0_20px_rgba(255,159,28,0.3)] hover:shadow-[0_0_30px_rgba(255,159,28,0.5)] transition-all active:scale-95">
                       {loading ? "Submitting..." : "Get Free Quote"}
                       {!loading && <ArrowRight className="w-4 h-4 ml-1" />}
                     </Button>
@@ -144,99 +145,122 @@ export const PlanDetailPage = () => {
       </section>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 mt-16 space-y-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 mt-16 space-y-24">
 
         {/* Coverage Details */}
         <section>
-          <div className="flex items-center gap-3 mb-8">
+          <ScrollReveal className="flex items-center gap-3 mb-10">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: plan.bgColor }}>
               <ShieldPlus className="w-5 h-5" style={{ color: plan.color }} />
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>
               What's Covered
             </h2>
-          </div>
+          </ScrollReveal>
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {plan.coverageDetails.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div key={idx} className="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-md group" style={{ transitionProperty: "box-shadow", transitionDuration: "300ms" }}>
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: plan.bgColor }}>
-                    <Icon className="w-5 h-5" style={{ color: plan.color }} />
+                <ScrollReveal 
+                  key={idx} 
+                  delay={idx * 50}
+                  className="h-full"
+                >
+                  <div className="bg-white p-6 rounded-2xl border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group h-full">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform group-hover:scale-110" style={{ backgroundColor: plan.bgColor }}>
+                      <Icon className="w-6 h-6" style={{ color: plan.color }} />
+                    </div>
+                    <h4 className="font-bold text-[#1A1A4E] mb-3 text-base">{item.title}</h4>
+                    <p className="text-sm text-[#64748B] leading-relaxed">{item.desc}</p>
                   </div>
-                  <h4 className="font-bold text-[#1A1A4E] mb-2 text-sm">{item.title}</h4>
-                  <p className="text-sm text-[#64748B] leading-relaxed">{item.desc}</p>
-                </div>
+                </ScrollReveal>
               );
             })}
           </div>
         </section>
 
         {/* Bonus & Restoration */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-[#F0FDF4] border border-[#10B981]/10 rounded-2xl p-8">
-            <div className="flex items-center gap-3 mb-4">
-              <Sparkles className="w-6 h-6 text-[#10B981]" />
-              <h3 className="text-lg font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>Cumulative Bonus</h3>
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <ScrollReveal delay={100} className="h-full">
+            <div className="bg-[#F0FDF4] border border-[#10B981]/10 rounded-3xl p-10 hover:shadow-lg transition-all h-full group">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-white rounded-2xl shadow-sm group-hover:scale-110 transition-transform">
+                  <Sparkles className="w-7 h-7 text-[#10B981]" />
+                </div>
+                <h3 className="text-xl font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>Cumulative Bonus</h3>
+              </div>
+              <p className="text-base text-[#475569] leading-relaxed">{plan.cumulativeBonus}</p>
             </div>
-            <p className="text-sm text-[#475569] leading-relaxed">{plan.cumulativeBonus}</p>
-          </div>
-          <div className="bg-[#F0F9FF] border border-[#0088CC]/10 rounded-2xl p-8">
-            <div className="flex items-center gap-3 mb-4">
-              <Shield className="w-6 h-6 text-[#0088CC]" />
-              <h3 className="text-lg font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>Sum Insured Restoration</h3>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={300} className="h-full">
+            <div className="bg-[#F0F9FF] border border-[#0088CC]/10 rounded-3xl p-10 hover:shadow-lg transition-all h-full group">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-white rounded-2xl shadow-sm group-hover:scale-110 transition-transform">
+                  <Shield className="w-7 h-7 text-[#0088CC]" />
+                </div>
+                <h3 className="text-xl font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>Sum Insured Restoration</h3>
+              </div>
+              <p className="text-base text-[#475569] leading-relaxed">{plan.restoration}</p>
             </div>
-            <p className="text-sm text-[#475569] leading-relaxed">{plan.restoration}</p>
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* Waiting Periods */}
         <section>
-          <div className="flex items-center gap-3 mb-8">
+          <ScrollReveal className="flex items-center gap-3 mb-10">
             <div className="w-10 h-10 rounded-xl bg-[#FFF7ED] flex items-center justify-center">
               <Clock className="w-5 h-5 text-[#F59E0B]" />
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>
               Waiting Periods
             </h2>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+          </ScrollReveal>
+          
+          <ScrollReveal className="bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-500">
             {plan.waitingPeriods.map((wp, idx) => (
-              <div key={idx} className={`flex items-start gap-4 p-6 ${idx !== plan.waitingPeriods.length - 1 ? "border-b border-gray-100" : ""}`}>
-                <div className="px-3 py-1.5 bg-[#FFF7ED] rounded-lg shrink-0">
-                  <span className="text-sm font-bold text-[#F59E0B]">{wp.period}</span>
+              <div key={idx} className={`flex items-start gap-6 p-8 ${idx !== plan.waitingPeriods.length - 1 ? "border-b border-gray-100" : ""} hover:bg-gray-50/50 transition-colors group`}>
+                <div className="px-4 py-2 bg-[#FFF7ED] rounded-xl shrink-0 group-hover:scale-105 transition-transform">
+                  <span className="text-sm font-bold text-[#F59E0B] whitespace-nowrap">{wp.period}</span>
                 </div>
-                <p className="text-sm text-[#475569] leading-relaxed">{wp.description}</p>
+                <p className="text-base text-[#475569] leading-relaxed">{wp.description}</p>
               </div>
             ))}
-          </div>
+          </ScrollReveal>
+          
           {plan.copay && (
-            <div className="mt-4 p-4 bg-[#FEF2F2] rounded-xl border border-[#EF4444]/10 flex items-start gap-3">
-              <AlertTriangle className="w-4 h-4 text-[#EF4444] mt-0.5 shrink-0" />
-              <p className="text-sm text-[#64748B]"><span className="font-semibold text-[#1A1A4E]">Co-payment:</span> {plan.copay}</p>
-            </div>
+            <ScrollReveal delay={500} className="mt-6 p-5 bg-[#FEF2F2] rounded-2xl border border-[#EF4444]/10 flex items-center gap-4">
+              <AlertTriangle className="w-6 h-6 text-[#EF4444] shrink-0" />
+              <p className="text-base text-[#64748B]"><span className="font-bold text-[#1A1A4E]">Co-payment:</span> {plan.copay}</p>
+            </ScrollReveal>
           )}
         </section>
 
         {/* Discounts */}
         <section>
-          <div className="flex items-center gap-3 mb-8">
+          <ScrollReveal className="flex items-center gap-3 mb-10">
             <div className="w-10 h-10 rounded-xl bg-[#F0FDF4] flex items-center justify-center">
               <BadgePercent className="w-5 h-5 text-[#10B981]" />
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>
               Available Discounts
             </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          </ScrollReveal>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {plan.discounts.map((d, idx) => (
-              <div key={idx} className="bg-white rounded-xl border border-gray-100 p-5 flex gap-4">
-                <CheckCircle className="w-5 h-5 text-[#10B981] mt-0.5 shrink-0" />
-                <div>
-                  <h4 className="font-bold text-[#1A1A4E] text-sm mb-1">{d.name}</h4>
-                  <p className="text-sm text-[#64748B]">{d.detail}</p>
+              <ScrollReveal key={idx} delay={idx * 75}>
+                <div className="bg-white rounded-2xl border border-gray-100 p-6 flex gap-5 hover:shadow-xl hover:-translate-y-1 transition-all group h-full">
+                  <div className="w-10 h-10 rounded-full bg-[#F0FDF4] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <CheckCircle className="w-6 h-6 text-[#10B981]" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-[#1A1A4E] text-base mb-2">{d.name}</h4>
+                    <p className="text-sm text-[#64748B] leading-relaxed">{d.detail}</p>
+                  </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </section>
@@ -244,21 +268,26 @@ export const PlanDetailPage = () => {
         {/* Optional Covers (Super Star only) */}
         {plan.optionalCovers && (
           <section>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-[#F5F3FF] flex items-center justify-center">
-                <ShieldPlus className="w-5 h-5 text-[#8B5CF6]" />
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>
-                {plan.optionalCovers.length} Optional Covers
-              </h2>
-            </div>
-            <p className="text-sm text-[#64748B] mb-8 ml-[52px]">Customize your policy with add-ons tailored to your needs, including Star Flexi packages.</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {plan.optionalCovers.map((oc, idx) => (
-                <div key={idx} className="bg-white rounded-xl border border-gray-100 p-5">
-                  <h4 className="font-bold text-[#1A1A4E] text-sm mb-1.5">{oc.name}</h4>
-                  <p className="text-sm text-[#64748B] leading-relaxed">{oc.detail}</p>
+            <ScrollReveal className="mb-10">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-xl bg-[#F5F3FF] flex items-center justify-center">
+                  <ShieldPlus className="w-5 h-5 text-[#8B5CF6]" />
                 </div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>
+                  {plan.optionalCovers.length} Optional Covers
+                </h2>
+              </div>
+              <p className="text-base text-[#64748B] ml-[52px]">Customize your policy with add-ons tailored to your needs.</p>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {plan.optionalCovers.map((oc, idx) => (
+                <ScrollReveal key={idx} delay={idx * 50}>
+                  <div className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-xl hover:-translate-y-1 transition-all h-full">
+                    <h4 className="font-bold text-[#1A1A4E] text-base mb-3">{oc.name}</h4>
+                    <p className="text-sm text-[#64748B] leading-relaxed">{oc.detail}</p>
+                  </div>
+                </ScrollReveal>
               ))}
             </div>
           </section>
@@ -266,52 +295,58 @@ export const PlanDetailPage = () => {
 
         {/* Additional Features */}
         <section>
-          <div className="flex items-center gap-3 mb-8">
+          <ScrollReveal className="flex items-center gap-3 mb-10">
             <div className="w-10 h-10 rounded-xl bg-[#F0F9FF] flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-[#0088CC]" />
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>
               Additional Benefits
             </h2>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-100 p-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          </ScrollReveal>
+          
+          <ScrollReveal className="bg-white rounded-3xl border border-gray-100 p-10 hover:shadow-xl transition-all">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {plan.additionalFeatures.map((f, idx) => (
-                <div key={idx} className="flex items-start gap-3">
-                  <CheckCircle className="w-4 h-4 text-[#0088CC] mt-0.5 shrink-0" />
-                  <span className="text-sm text-[#475569]">{f}</span>
+                <div key={idx} className="flex items-start gap-4 group">
+                  <div className="w-6 h-6 rounded-full bg-[#F0F9FF] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#0088CC] transition-colors">
+                    <CheckCircle className="w-4 h-4 text-[#0088CC] group-hover:text-white transition-colors" />
+                  </div>
+                  <span className="text-base text-[#475569] leading-relaxed group-hover:text-[#1A1A4E] transition-colors">{f}</span>
                 </div>
               ))}
             </div>
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* Key Exclusions */}
         <section>
-          <div className="flex items-center gap-3 mb-8">
+          <ScrollReveal className="flex items-center gap-3 mb-10">
             <div className="w-10 h-10 rounded-xl bg-[#FEF2F2] flex items-center justify-center">
               <AlertTriangle className="w-5 h-5 text-[#EF4444]" />
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A4E]" style={{ fontFamily: "Outfit, sans-serif" }}>
               Key Exclusions
             </h2>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-100 p-8">
-            <div className="space-y-3">
+          </ScrollReveal>
+          
+          <ScrollReveal className="bg-white rounded-3xl border border-gray-100 p-10 hover:shadow-xl transition-all border-t-8 border-t-[#EF4444]/10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {plan.keyExclusions.map((ex, idx) => (
-                <div key={idx} className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-[#FEF2F2] flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-xs text-[#EF4444] font-bold">✕</span>
+                <div key={idx} className="flex items-start gap-4 group">
+                  <div className="w-6 h-6 rounded-full bg-[#FEF2F2] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#EF4444] group-hover:rotate-12 transition-all">
+                    <span className="text-xs text-[#EF4444] font-bold group-hover:text-white transition-colors">✕</span>
                   </div>
-                  <span className="text-sm text-[#475569]">{ex}</span>
+                  <span className="text-base text-[#475569] leading-relaxed group-hover:text-[#1A1A4E] transition-colors">{ex}</span>
                 </div>
               ))}
             </div>
-          </div>
+          </ScrollReveal>
         </section>
 
         {/* Consultation Options */}
-        <ConsultationSection />
+        <ScrollReveal threshold={0.05}>
+          <ConsultationSection />
+        </ScrollReveal>
 
       </div>
     </div>

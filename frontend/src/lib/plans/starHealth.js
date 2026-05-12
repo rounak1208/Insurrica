@@ -1,18 +1,24 @@
 import {
-  Heart, Shield, Clock, Zap, BadgeCheck, FileText, Users, Activity,
-  HeartPulse, ShieldAlert, PlusSquare, Stethoscope, Pill, Syringe,
-  Baby, Sparkles, RefreshCw, Star
-} from "lucide-react";
+  Heart, Shield, Clock, Zap, BadgeCheck, Activity,
+  HeartPulse, PlusSquare, Stethoscope, Pill, Syringe,
+  Baby, Sparkles, RefreshCw, Star,
+} from "./icons";
 
 /**
- * Health insurance plan data extracted from Star Health Insurance PDFs.
+ * Star Health Insurance — Company profile and plan data.
  *
  * Sources:
  *   - Star Health Assure: Brochure V5, Policy V9, Prospectus V3
  *   - Super Star: Brochure V2, Policy V3, Prospectus V2
+ *
+ * ── ADDING A NEW PLAN ──────────────────────────────────
+ *  1. Add the plan object below with a unique `id` and `insurerId: "star-health"`
+ *  2. Add the id to the `planOrder` array
+ *  3. That's it — the central registry and UI will pick it up automatically.
  */
 
-export const insurerProfiles = {
+/** Insurer profile shown in the sidebar */
+export const profile = {
   "star-health": {
     id: "star-health",
     name: "Star Health Insurance",
@@ -27,10 +33,24 @@ export const insurerProfiles = {
     ],
     established: 2006,
     headquarters: "Chennai",
+    /** Short label for the tab button */
+    tabLabel: "Star Health",
+    /** Accent colour for the sidebar icon */
+    accentColor: "#FF9F1C",
+    /** "Why X?" blurb shown in the sidebar callout */
+    whyBlurb: {
+      title: "Why Star Health?",
+      text: "India's largest standalone health insurer with the highest claim settlement ratio in the industry. Their digital-first approach includes AI-powered health scans and unlimited tele-consultations.",
+      color: "#0088CC",
+    },
   },
 };
 
-export const healthInsurancePlans = {
+/** Ordered plan IDs for display on the listing page */
+export const planOrder = ["super-star", "star-health-assure"];
+
+/** Plan data keyed by plan ID */
+export const plans = {
   "star-health-assure": {
     id: "star-health-assure",
     insurerId: "star-health",
@@ -42,7 +62,6 @@ export const healthInsurancePlans = {
     color: "#EF4444",
     bgColor: "#FEF2F2",
 
-    // Card highlights (shown on comparison cards)
     cardHighlights: [
       "Sum Insured up to ₹2 Crore",
       "Any Room (₹10L+ SI)",
@@ -51,11 +70,9 @@ export const healthInsurancePlans = {
       "Wellness discount up to 20%",
     ],
 
-    // Sum Insured
     sumInsuredRange: "₹5 Lakh – ₹2 Crore",
     sumInsuredOptions: ["₹5L", "₹7.5L", "₹10L", "₹15L", "₹20L", "₹25L", "₹50L", "₹75L", "₹1Cr", "₹2Cr"],
 
-    // Eligibility
     entryAge: {
       adults: "18 – 75 years",
       children: "16 days – 25 years",
@@ -65,7 +82,6 @@ export const healthInsurancePlans = {
     maxFamilySize: "6 Adults + 3 Children (up to 9 members)",
     policyTerm: "1 / 2 / 3 years",
 
-    // Key Coverage
     coverageDetails: [
       {
         title: "In-Patient Hospitalization",
@@ -129,11 +145,9 @@ export const healthInsurancePlans = {
       },
     ],
 
-    // Bonus & Restoration
     cumulativeBonus: "25% of Sum Insured per claim-free year, maximum up to 100%",
     restoration: "Automatic unlimited restoration of 100% Sum Insured after each claim for subsequent hospitalization",
 
-    // Waiting Periods
     waitingPeriods: [
       { period: "30 days", description: "Initial waiting period for all illnesses (accidents covered from Day 1)" },
       { period: "24 months", description: "Specific diseases/procedures: Cataract, ENT, Thyroid, Hernia, Joint Replacement, Gallbladder, Kidney Stones, Varicose Veins, etc." },
@@ -141,10 +155,8 @@ export const healthInsurancePlans = {
       { period: "24 months", description: "Delivery Expenses, Assisted Reproduction, In Utero Fetal Surgery" },
     ],
 
-    // Co-payment
     copay: "10% co-payment for insured persons with entry age 61 years and above",
 
-    // Discounts
     discounts: [
       { name: "Floater Discount", detail: "40% for child (on becoming 18), 10% per parent added" },
       { name: "Long-Term Discount", detail: "10% on 2nd and 3rd year premium" },
@@ -153,7 +165,6 @@ export const healthInsurancePlans = {
       { name: "Deductible Discount", detail: "Up to 55% discount by choosing ₹50K or ₹1L aggregate deductible" },
     ],
 
-    // Additional Features
     additionalFeatures: [
       "Unlimited Tele-Consultation via Star Health App",
       "AI-driven Face Scan (heart rate, oxygen, respiration)",
@@ -167,7 +178,6 @@ export const healthInsurancePlans = {
       "Instalment payment (Monthly/Quarterly/Half-yearly)",
     ],
 
-    // Key Exclusions (customer-relevant summary)
     keyExclusions: [
       "Cosmetic/plastic surgery (unless post-accident or cancer)",
       "Dental treatment (unless due to accident requiring hospitalization)",
@@ -200,11 +210,9 @@ export const healthInsurancePlans = {
       "Premium Return after 5 claim-free years",
     ],
 
-    // Sum Insured
     sumInsuredRange: "₹5 Lakh – ₹1 Crore + Unlimited",
     sumInsuredOptions: ["₹5L", "₹7.5L", "₹10L", "₹15L", "₹20L", "₹25L", "₹50L", "₹1Cr", "Unlimited"],
 
-    // Eligibility
     entryAge: {
       adults: "18 years – Any age (no upper limit)",
       children: "91 days – 25 years",
@@ -214,7 +222,6 @@ export const healthInsurancePlans = {
     maxFamilySize: "2 Adults + 4 Children (up to 6 members)",
     policyTerm: "1 / 2 / 3 / 4 / 5 years",
 
-    // Key Coverage
     coverageDetails: [
       {
         title: "In-Patient Hospitalization",
@@ -278,21 +285,17 @@ export const healthInsurancePlans = {
       },
     ],
 
-    // Bonus & Restoration
     cumulativeBonus: "50% of Sum Insured per claim-free year, maximum up to 100% — double the industry standard",
     restoration: "Automatic unlimited restoration of 100% Sum Insured after each claim for subsequent hospitalization",
 
-    // Waiting Periods
     waitingPeriods: [
       { period: "30 days", description: "Initial waiting period for all illnesses (accidents covered from Day 1)" },
       { period: "24 months", description: "Specific diseases/procedures (reducible to 12 months via optional cover)" },
       { period: "36 months", description: "Pre-existing diseases (reducible to 24 or 12 months via optional covers)" },
     ],
 
-    // Co-payment
     copay: "No mandatory co-payment (voluntary co-pay available as optional cover for premium discount)",
 
-    // Discounts
     discounts: [
       { name: "CIBIL Score Discount", detail: "Up to 15% based on credit score (850+ = 15%)" },
       { name: "Long-Term Discount", detail: "10% (2yr), 12.5% (3yr), 14% (4yr), 16% (5yr)" },
@@ -303,7 +306,6 @@ export const healthInsurancePlans = {
       { name: "Co-terminus Discount", detail: "2.5-7.5% when buying separate policy for parents" },
     ],
 
-    // Optional Covers (including Star Flexi add-on)
     optionalCovers: [
       { name: "Smart Network", detail: "15% premium discount with 15% co-pay outside smart network hospitals" },
       { name: "Quick Shield", detail: "Waives PED waiting for Diabetes, Hypertension, Asthma, Hyperlipidemia, certain Coronary diseases from Day 31" },
@@ -351,7 +353,6 @@ export const healthInsurancePlans = {
       "Grace Period Cover — coverage active during renewal grace period",
     ],
 
-    // Key Exclusions
     keyExclusions: [
       "Cosmetic/plastic surgery (unless post-accident or cancer)",
       "Dental treatment (unless due to accident requiring hospitalization)",
@@ -363,15 +364,3 @@ export const healthInsurancePlans = {
     ],
   },
 };
-
-/** Ordered list of plan IDs for display */
-export const healthPlanOrder = ["super-star", "star-health-assure"];
-
-/** Other insurance companies (Coming Soon) */
-export const comingSoonInsurers = [
-  { id: "hdfc-ergo", name: "HDFC Ergo", color: "#004B87", bgColor: "#E8F4FD" },
-  { id: "icici-lombard", name: "ICICI Lombard", color: "#B02A30", bgColor: "#FDEAEB" },
-  { id: "bajaj-allianz", name: "Bajaj Allianz", color: "#003DA5", bgColor: "#E6EEFF" },
-  { id: "niva-bupa", name: "Niva Bupa", color: "#00A651", bgColor: "#E6F9EF" },
-  { id: "care-health", name: "Care Health", color: "#FF6B00", bgColor: "#FFF0E6" },
-];

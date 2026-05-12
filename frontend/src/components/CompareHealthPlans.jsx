@@ -1,21 +1,27 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, CheckCircle, Building2, ChevronRight, Star } from "lucide-react";
+import { CheckCircle, Building2, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import {
   insurerProfiles,
   healthInsurancePlans,
-  healthPlanOrder,
+  planOrderByInsurer,
+  activeInsurers,
   comingSoonInsurers,
-} from "../lib/starHealthPlans";
+} from "../lib/plans";
 
 export const CompareHealthPlans = () => {
   const [selectedInsurer, setSelectedInsurer] = useState("star-health");
   const navigate = useNavigate();
 
   const insurer = insurerProfiles[selectedInsurer];
-  const plans = healthPlanOrder.map((id) => healthInsurancePlans[id]);
+  const planIds = planOrderByInsurer[selectedInsurer] || [];
+  const plans = planIds.map((id) => healthInsurancePlans[id]);
+
+  // UI config pulled from the insurer profile (set in each company file)
+  const accentColor = insurer?.accentColor || "#0088CC";
+  const whyBlurb = insurer?.whyBlurb;
 
   const handleComingSoon = (name) => {
     toast.info(`${name} plans coming soon! Stay tuned.`);
@@ -40,21 +46,27 @@ export const CompareHealthPlans = () => {
           </p>
         </div>
 
-        {/* Company Tabs */}
+        {/* Company Tabs — dynamically rendered from activeInsurers */}
         <div className="flex flex-wrap gap-3 mb-12">
-          {/* Star Health - Active */}
-          <button
-            onClick={() => setSelectedInsurer("star-health")}
-            className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold border-2 ${
-              selectedInsurer === "star-health"
-                ? "border-[#0088CC] bg-[#0088CC]/5 text-[#0088CC] shadow-[0_0_20px_rgba(0,136,204,0.15)]"
-                : "border-gray-200 text-[#475569] hover:border-[#0088CC]/30"
-            }`}
-            style={{ transitionProperty: "border-color, background-color, box-shadow", transitionDuration: "300ms" }}
-          >
-            <Building2 className="w-4 h-4" />
-            Star Health
-          </button>
+          {activeInsurers.map((insurerId) => {
+            const profile = insurerProfiles[insurerId];
+            const isSelected = selectedInsurer === insurerId;
+            return (
+              <button
+                key={insurerId}
+                onClick={() => setSelectedInsurer(insurerId)}
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold border-2 ${
+                  isSelected
+                    ? "border-[#0088CC] bg-[#0088CC]/5 text-[#0088CC] shadow-[0_0_20px_rgba(0,136,204,0.15)]"
+                    : "border-gray-200 text-[#475569] hover:border-[#0088CC]/30"
+                }`}
+                style={{ transitionProperty: "border-color, background-color, box-shadow", transitionDuration: "300ms" }}
+              >
+                <Building2 className="w-4 h-4" />
+                {profile?.tabLabel || profile?.name || insurerId}
+              </button>
+            );
+          })}
 
           {/* Coming Soon insurers */}
           {comingSoonInsurers.map((ins) => (
@@ -81,7 +93,7 @@ export const CompareHealthPlans = () => {
             <div className="bg-[#F8FAFC] rounded-2xl p-8 border border-gray-100 sticky top-28">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-100">
-                  <Star className="w-6 h-6 text-[#FF9F1C]" />
+                  <Building2 className="w-6 h-6" style={{ color: accentColor }} />
                 </div>
                 <div>
                   <h3
@@ -107,12 +119,25 @@ export const CompareHealthPlans = () => {
                 ))}
               </div>
 
-              <div className="mt-8 p-4 bg-[#0088CC]/5 rounded-xl border border-[#0088CC]/10">
-                <p className="text-xs text-[#0088CC] font-semibold uppercase tracking-wider mb-1">Why Star Health?</p>
-                <p className="text-sm text-[#475569] leading-relaxed">
-                  India's largest standalone health insurer with the highest claim settlement ratio in the industry. Their digital-first approach includes AI-powered health scans and unlimited tele-consultations.
-                </p>
-              </div>
+              {whyBlurb && (
+                <div
+                  className="mt-8 p-4 rounded-xl border"
+                  style={{
+                    backgroundColor: `${whyBlurb.color}08`,
+                    borderColor: `${whyBlurb.color}18`,
+                  }}
+                >
+                  <p
+                    className="text-xs font-semibold uppercase tracking-wider mb-1"
+                    style={{ color: whyBlurb.color }}
+                  >
+                    {whyBlurb.title}
+                  </p>
+                  <p className="text-sm text-[#475569] leading-relaxed">
+                    {whyBlurb.text}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -147,6 +172,11 @@ export const CompareHealthPlans = () => {
                             Premium
                           </span>
                         )}
+                        {plan.id === "hdfc-click2protect-health" && (
+                          <span className="px-2.5 py-0.5 bg-[#004B87]/10 text-[#004B87] text-[10px] font-bold uppercase tracking-wider rounded-full">
+                            Combo
+                          </span>
+                        )}
                       </div>
                       <p className="text-sm text-[#64748B] leading-relaxed max-w-lg">
                         {plan.description}
@@ -162,7 +192,7 @@ export const CompareHealthPlans = () => {
 
                   {/* Highlights Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                    {plan.cardHighlights.map((h, i) => (
+                    {plan.cardHighlights.slice(0, 6).map((h, i) => (
                       <div key={i} className="flex items-center gap-2">
                         <div className="w-5 h-5 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: plan.bgColor }}>
                           <CheckCircle className="w-3 h-3" style={{ color: plan.color }} />
@@ -176,17 +206,17 @@ export const CompareHealthPlans = () => {
                   <div className="flex flex-wrap gap-4 mb-6">
                     <div className="px-3 py-1.5 bg-[#F0FDF4] rounded-lg">
                       <span className="text-xs text-[#10B981] font-semibold">
-                        Bonus: {plan.id === "super-star" ? "50%" : "25%"}/yr
+                        Bonus: {plan.cumulativeBonus?.includes("50%") ? "50%" : "25%"}/yr
                       </span>
                     </div>
                     <div className="px-3 py-1.5 bg-[#F0F9FF] rounded-lg">
                       <span className="text-xs text-[#0088CC] font-semibold">
-                        {plan.copay === "No mandatory co-payment (voluntary co-pay available as optional cover for premium discount)" ? "No Co-pay" : "10% Co-pay (61+)"}
+                        {plan.copay ? "Co-pay Applicable" : "No Mandatory Co-pay"}
                       </span>
                     </div>
                     <div className="px-3 py-1.5 bg-[#FFF7ED] rounded-lg">
                       <span className="text-xs text-[#F59E0B] font-semibold">
-                        {plan.maxFamilySize.split("(")[0].trim()}
+                        {plan.maxFamilySize?.split("(")[0]?.trim() || "Family Cover"}
                       </span>
                     </div>
                   </div>
